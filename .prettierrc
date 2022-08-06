@@ -1,0 +1,25 @@
+{
+  "trailingComma": "es5",
+  "tabWidth": 2,
+  "printWidth": 80,
+  "useTabs": false,
+  "semi": true,
+  "overrides": [
+    {
+      "files": "*.sol",
+      "options": {
+        "trailingComma": "none",
+        "printWidth": 80,
+        "tabWidth": 4,
+        "useTabs": false,
+        "singleQuote": false,
+        "bracketSpacing": false,
+        "explicitTypes": "always"
+      }
+    },
+    {
+      "files": ".prettierrc",
+      "options": { "parser": "json" }
+    }
+  ]
+}
