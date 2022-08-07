@@ -74,7 +74,7 @@ interface IGAAVECore {
      */
     function claimBadge(uint256 _campaignId, uint256 _milestone) external;
 
-    function proposeCampaign(uint256[] _thresholds, string[] memory _cids)
+    function proposeCampaign(uint256[] memory _thresholds, string[] memory _cids)
         external;
 
     function getCampaignCount() external view returns (uint256);
