@@ -6,18 +6,19 @@ const gasLogger = new GasLogger();
 
 module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   const { deploy } = deployments;
-  const { deployer, real_owner } = await getNamedAccounts();
+  const { deployer, real_owner, ETH_GATEWAY, POOL_PROXY } =
+    await getNamedAccounts();
   const chainId = await getChainId();
 
   // Config
   console.log(`Deploying GAAVE... from ${deployer}`);
 
-  let erc721AMock = await deploy("GAAVE", {
+  let gaave = await deploy("GAAVE", {
     from: deployer,
-    args: [],
+    args: [ETH_GATEWAY, POOL_PROXY],
   });
 
-  gasLogger.addDeployment(erc721AMock);
+  gasLogger.addDeployment(gaave);
 };
 
 module.exports.tags = ["GAAVE"];
