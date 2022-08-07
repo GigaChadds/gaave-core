@@ -28,6 +28,7 @@ if (process.env.PRIVATE_KEY) {
 } else {
   console.log("⚠️ Please set PRIVATE_KEY in the .env file");
   PRIVATE_KEY = ethers.Wallet.createRandom()._signingKey().privateKey;
+  console.log("🚀 | PRIVATE_KEY", PRIVATE_KEY);
 }
 
 if (process.env.PRIVATE_KEY_MAINNET) {
@@ -57,10 +58,9 @@ module.exports = {
     },
     hardhat: {
       // TODO: Add snapshot block
-      // forking: {
-      //   url: process.env.ALCHEMY_PROVIDER_MAINNET,
-      //   block: 0,
-      // },
+      forking: {
+        url: "https://rpc-mumbai.matic.today",
+      },
       mining: {
         auto: true,
       },
@@ -68,7 +68,7 @@ module.exports = {
     mainnet: {
       url: `https://mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`,
       chainId: 1,
-      accounts: [PRIVATE_KEY_MAINNET],
+      accounts: [PRIVATE_KEY],
       saveDeployments: true,
     },
     rinkeby: {
@@ -116,7 +116,7 @@ module.exports = {
   solidity: {
     compilers: [
       {
-        version: "0.8.11",
+        version: "0.8.10",
         settings: {
           optimizer: {
             enabled: true,
@@ -141,12 +141,15 @@ module.exports = {
       default: "0x0E99472F530d4fcb39EF643744Df8Fb300078a42", // MAN Owner dennis
     },
     DAI: {
+      default: "0x9A753f0F7886C9fbF63cF59D0D4423C5eFaCE95B",
       80001: "0x9A753f0F7886C9fbF63cF59D0D4423C5eFaCE95B",
     },
     POOL_PROXY: {
+      default: "0x6C9fB0D5bD9429eb9Cd96B85B81d872281771E6B",
       80001: "0x6C9fB0D5bD9429eb9Cd96B85B81d872281771E6B",
     },
     ETH_GATEWAY: {
+      default: "0x2a58E9bbb5434FdA7FF78051a4B82cb0EF669C17",
       80001: "0x2a58E9bbb5434FdA7FF78051a4B82cb0EF669C17",
     },
   },
