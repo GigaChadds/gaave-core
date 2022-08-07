@@ -11,13 +11,18 @@ contract GAAVECore is IGAAVECore {
     mapping(uint256 => mapping(address => User)) public userInfo;
 
 
-    mapping(address => address) pub
+    mapping(address => address) public tokenToPriceFeed;
     IWETHGateway public WETH_GATEWAY;
     IPool public AAVE_POOL;
 
-    constructor(IWETHGateway _WETH_GATEWAY, IPool _AAVE_POOL) public {
+    constructor(IWETHGateway _WETH_GATEWAY, IPool _AAVE_POOL, address[] _tokenAddresses, address[] _priceFeeds) public {
+        require(_tokenAddresses.length == _priceFeeds.length, "GAAVECore: number of token addresses must match price feeds");
         WETH_GATEWAY = _WETH_GATEWAY;
         AAVE_POOL = _AAVE_POOL;
+
+        for(uint256 = 0; i< _tokenAddresses.length; i++){
+            tokenToPriceFeed[_tokenAddresses[i]] = _priceFeeds[i];
+        }
     }
 
     /**
@@ -46,7 +51,7 @@ contract GAAVECore is IGAAVECore {
             user = User(price*_amount, timestamp, 0);
         } else {
             // else, retrieve already accumulated power and reset timestamp to current timestamp
-            user.power += powerAccumulated(_campaignId, msg.sender);
+            user.power += powerAccumulated(_campaignId, msg.sender, _tokenAddress);
             user.amount += price*_amount;
             user.timeEntered = timestamp;
         }
@@ -72,11 +77,12 @@ contract GAAVECore is IGAAVECore {
             user.amount >= _amount,
             "GAAVECore: Withdraw amount more than existing amount"
         );
+        uint price = getLatestPrice(tokenToPriceFeed[_tokenAddress]);
         // withdraw from AAVE
         AAVE_POOL.withdraw(_tokenAddress, _amount, msg.sender);
         uint256 timestamp = block.timestamp;
-        user.power += powerAccumulated(_campaignId, msg.sender);
-        user.amount -= _amount;
+        user.power += powerAccumulated(_campaignId, msg.sender, _tokenAddress);
+        user.amount -= price * _amount;
         user.timeEntered = timestamp;
 
         // emit event
