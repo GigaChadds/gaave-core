@@ -140,6 +140,15 @@ module.exports = {
     real_owner: {
       default: "0x0E99472F530d4fcb39EF643744Df8Fb300078a42", // MAN Owner dennis
     },
+    DAI: {
+      80001: "0x9A753f0F7886C9fbF63cF59D0D4423C5eFaCE95B",
+    },
+    POOL_PROXY: {
+      80001: "0x6C9fB0D5bD9429eb9Cd96B85B81d872281771E6B",
+    },
+    ETH_GATEWAY: {
+      80001: "0x2a58E9bbb5434FdA7FF78051a4B82cb0EF669C17",
+    },
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_API_KEY,
