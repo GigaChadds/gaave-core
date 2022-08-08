@@ -1,10 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.10;
 
-import "./IPool.sol";
-import "./IPoolAddressesProvider.sol";
-import "./IWETHGateway.sol";
-
 interface IGAAVECore {
     struct Campaign {
         uint256[] badgeIds;
@@ -12,7 +8,9 @@ interface IGAAVECore {
     }
 
     struct User {
-        uint256 amount;
+        mapping(address => uint256) tokenAmount;
+        mapping(address => uint256) lastPrice;
+        uint256 ethAmount;
         uint256 timeEntered;
         uint256 powerAccumulated;
     }
@@ -56,9 +54,8 @@ interface IGAAVECore {
 
     /**
      * @notice Deposit ETH into GAAVE
-     * @param _amount The amount of tokens to deposit
      */
-    function depositETH(uint256 _amount) external payable;
+    function depositETH() external payable;
 
     /**
      * @notice Withdraw ETH from GAAVE
@@ -70,12 +67,13 @@ interface IGAAVECore {
      * @notice Claim badges from GAAVE
      * @param _campaignId The id of the campaign to claim from
      * @param _milestone The milestone of the reward
-     * @return The address of the registered for the specified id
      */
     function claimBadge(uint256 _campaignId, uint256 _milestone) external;
 
-    function proposeCampaign(uint256[] _thresholds, string[] memory _cids)
-        external;
+    function proposeCampaign(
+        uint256[] memory _thresholds,
+        string[] memory _cids
+    ) external;
 
     function getCampaignCount() external view returns (uint256);
 }
