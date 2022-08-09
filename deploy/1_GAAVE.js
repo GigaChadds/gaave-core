@@ -15,8 +15,8 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
 
   // Token Addresses
   let TOKEN_ADDRESSES = [
-    "0x9A753f0F7886C9fbF63cF59D0D4423C5eFaCE95B",
-    "0xb685400156cF3CBE8725958DeAA61436727A30c3",
+    "0x9A753f0F7886C9fbF63cF59D0D4423C5eFaCE95B", // DAI
+    "0xb685400156cF3CBE8725958DeAA61436727A30c3", // MATIC
   ];
 
   // Chainlink Addresses
@@ -29,7 +29,13 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
 
   let gaave = await deploy("GAAVECore", {
     from: deployer,
-    args: [ETH_GATEWAY, POOL_PROXY, TOKEN_ADDRESSES, CHAINLINK_ADDRESSES],
+    args: [
+      ETH_GATEWAY,
+      POOL_PROXY,
+      TOKEN_ADDRESSES[1],
+      TOKEN_ADDRESSES,
+      CHAINLINK_ADDRESSES,
+    ],
   });
 
   gasLogger.addDeployment(gaave);

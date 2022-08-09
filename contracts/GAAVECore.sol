@@ -26,9 +26,13 @@ contract GAAVECore is IGAAVECore {
     // To deposit token assets (USDT, DAI, USDC, AAVE, etc)
     IPool public AAVE_POOL;
 
+    // Address for WETH
+    address public WETH;
+
     constructor(
         IWETHGateway _WETH_GATEWAY,
         IPool _AAVE_POOL,
+        address _WETH,
         address[] memory _tokenAddresses,
         address[] memory _priceFeeds
     ) {
@@ -37,6 +41,7 @@ contract GAAVECore is IGAAVECore {
             "GAAVECore: number of token addresses must match price feeds"
         );
         WETH_GATEWAY = _WETH_GATEWAY;
+        WETH = _WETH;
         AAVE_POOL = _AAVE_POOL;
 
         for (uint256 i = 0; i < _tokenAddresses.length; i++) {
@@ -116,27 +121,26 @@ contract GAAVECore is IGAAVECore {
     /**
      * @notice Deposit ETH into GAAVE
      */
-    function depositETH() external payable {
+    function depositETH(uint256 _campaignId) external payable {
         User storage user = userInfo[_campaignId][msg.sender];
         uint256 timestamp = block.timestamp;
-        uint256 currentPrice = getLatestPrice(tokenToPriceFeed[_tokenAddress]);
+        uint256 currentPrice = getLatestPrice(tokenToPriceFeed[WETH]);
         // if this is user's first time depositing this token, set powerAccumulated to 0,
         // log amount and timestamp
-        if (user.tokenAmount[_tokenAddress] == 0) {
+        if (user.ethAmount == 0) {
             user.powerAccumulated = 0;
-            user.tokenAmount[_tokenAddress] = uint256(_amount);
-            user.lastPrice[_tokenAddress] = currentPrice;
+            user.ethAmount = uint256(msg.value);
+            user.lastPrice[WETH] = currentPrice;
             user.timeEntered = timestamp;
         } else {
             // else, retrieve already accumulated power and reset timestamp to current timestamp
             // Power = currentAmount * (prevPrice + currentPrice) / 2 * (currentTimestamp - startTimestamp)
             user.powerAccumulated +=
-                ((user.tokenAmount[_tokenAddress] *
-                    (currentPrice + user.lastPrice[_tokenAddress])) / 2) *
+                ((user.ethAmount * (currentPrice + user.lastPrice[WETH])) / 2) *
                 (timestamp - user.timeEntered);
-            user.tokenAmount[_tokenAddress] += _amount; // Update Token Deposited
+            user.ethAmount += msg.value; // Update Token Deposited
             user.timeEntered = timestamp; // Update Time Entered
-            user.lastPrice[_tokenAddress] = currentPrice; // Update Last Entry Price of current token
+            user.lastPrice[WETH] = currentPrice; // Update Last Entry Price of current token
         }
         // Transfer ETH from user to GAAVE
         WETH_GATEWAY.depositETH{value: msg.value}(

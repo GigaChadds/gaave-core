@@ -43,25 +43,33 @@ interface IGAAVECore {
      * @param _tokenAddress The address of the token to deposit
      * @param _amount The amount of tokens to deposit
      */
-    function deposit(address _tokenAddress, uint256 _amount) external;
+    function deposit(
+        uint256 _campaignId,
+        address _tokenAddress,
+        uint256 _amount
+    ) external;
 
     /**
      * @notice Withdraw Crypto from GAAVE
      * @param _tokenAddress The address of the token to withdraw
      * @param _amount The amount of tokens to withdraw
      */
-    function withdraw(address _tokenAddress, uint256 _amount) external;
+    function withdraw(
+        uint256 _campaignId,
+        address _tokenAddress,
+        uint256 _amount
+    ) external;
 
     /**
      * @notice Deposit ETH into GAAVE
      */
-    function depositETH() external payable;
+    function depositETH(uint256 _campaignId) external payable;
 
     /**
      * @notice Withdraw ETH from GAAVE
      * @param _amount The amount of tokens to withdraw
      */
-    function withdrawETH(uint256 _amount) external;
+    function withdrawETH(uint256 _campaignId, uint256 _amount) external;
 
     /**
      * @notice Claim badges from GAAVE
