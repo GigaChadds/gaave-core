@@ -39,6 +39,9 @@ contract GAAVECore is IGAAVECore {
     // Address for lib
     address public poolImplementationLib;
 
+    // Address for ERC1155
+    address public GAAVEBadge;
+
     // Address for tokens (DAI, MATIC)
     IERC20[] public tokenAddresses;
 
