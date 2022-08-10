@@ -39,6 +39,9 @@ contract GAAVECore is IGAAVECore {
     // Address for lib
     address public poolImplementationLib;
 
+    // Address for ERC1155
+    address public GAAVEBadge;
+
     // Address for tokens (DAI, MATIC)
     IERC20[] public tokenAddresses;
 
@@ -77,6 +80,7 @@ contract GAAVECore is IGAAVECore {
         poolImplementation.init(address(this), msg.sender);
         poolImplementationLib = address(poolImplementation);
     }
+  
 
     /**
      * @notice Deposit Crypto into a GAAVEPool

@@ -45,6 +45,19 @@ contract GAAVEPool {
         return eligibleBadges;
     }
 
+    /**
+     * @notice Claim badges
+     */
+    function claimBadges(address _claimant) public onlyCore{
+
+        uint256[] _eligibleBadges = canClaim(_claimant);
+        // badge.mint(_claimant,
+        // _id,
+        // 1,
+        // "0x00")
+
+    }
+
     struct User {
         mapping(address => uint256) tokenAmount;
         mapping(address => uint256) lastPrice;
@@ -64,13 +77,16 @@ contract GAAVEPool {
     function init(
         address _CORE,
         address _poolOwner,
-        uint256[] calldata _badgeIds
+        address _badge,
+        uint256[] _badgeIds
     ) public {
         require(poolOwner == address(0), "GAAVEPool: Already initialized");
 
         CORE = GAAVECore(_CORE);
         poolOwner = _poolOwner;
-
+        // init badge contract //
+        IERC1155(_badge).init("GAAVE Campaign Badge","GAAVEB", "uri", address(this));
+        badge.create(address(this), 1, "", "0x00");
         campaign = new Campaign(_badgeIds, [10 ether, 100 ether]);
     }
 
@@ -298,13 +314,4 @@ contract GAAVEPool {
         return totalTokenAmount[tokenAddress];
     }
 
-    // claim erc1155 achievement badges
-    function claimBadges(uint256 _campaignId, address _supporter) external {
-        // badge.
-    }
-
-    function getUserClaimableBadges() external view {
-        // thresholds
-        // if reach threshold
-    }
 }
