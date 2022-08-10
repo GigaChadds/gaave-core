@@ -59,7 +59,8 @@ module.exports = {
     hardhat: {
       // TODO: Add snapshot block
       forking: {
-        url: "https://rpc-mumbai.matic.today",
+        url: "https://polygon-mumbai.g.alchemy.com/v2/o1dKBt7FcYQrRUNfgHX-DUUXHNvPKA1v",
+        block: 27524000,
       },
       mining: {
         auto: true,
