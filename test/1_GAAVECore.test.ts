@@ -50,4 +50,14 @@ describe("GAAVECore", function () {
     let balance = await owner.getBalance();
     console.log(balance.toString());
   });
+
+  it("Should Withdraw ETH/MATIC", async function () {
+    let depositAmount = ethers.utils.parseEther("1");
+    await gaave.depositETH({ value: depositAmount });
+  });
+
+  it("Should Withdraw DAI", async function () {
+    let balance = await owner.getBalance();
+    console.log(balance.toString());
+  });
 });

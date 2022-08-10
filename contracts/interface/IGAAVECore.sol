@@ -55,7 +55,7 @@ interface IGAAVECore {
      * @param _amount The amount of tokens to withdraw
      */
     function withdraw(
-        uint256 _campaignId,
+        uint256 _poolAddress,
         address _tokenAddress,
         uint256 _amount
     ) external;

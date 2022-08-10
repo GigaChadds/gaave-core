@@ -1,0 +1,736 @@
+{
+  "address": "0x3462dd3c28F1548b1efe27EFc8DDB95326aB8e58",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "contract IWETHGateway",
+          "name": "_WETH_GATEWAY",
+          "type": "address"
+        },
+        {
+          "internalType": "contract IPool",
+          "name": "_AAVE_POOL",
+          "type": "address"
+        },
+        {
+          "internalType": "address[]",
+          "name": "_tokenAddresses",
+          "type": "address[]"
+        },
+        {
+          "internalType": "address[]",
+          "name": "_priceFeeds",
+          "type": "address[]"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_campaignAddress",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_campaignId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256[]",
+          "name": "_thresholds",
+          "type": "uint256[]"
+        }
+      ],
+      "name": "CampaignProposed",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "_user",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "_id",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_address",
+          "type": "address"
+        }
+      ],
+      "name": "ClaimBadge",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "_user",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "_tokenAddress",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "Deposited",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "_user",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "DepositedETH",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "_user",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "_tokenAddress",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "Withdrawn",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "_user",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "WithdrawnETH",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "AAVE_POOL",
+      "outputs": [
+        {
+          "internalType": "contract IPool",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "WETH_GATEWAY",
+      "outputs": [
+        {
+          "internalType": "contract IWETHGateway",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_campaignId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_milestone",
+          "type": "uint256"
+        }
+      ],
+      "name": "claimBadge",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "claimBadge",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_tokenAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "deposit",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_campaignId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "_tokenAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "deposit",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "depositETH",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getCampaignCount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_priceFeed",
+          "type": "address"
+        }
+      ],
+      "name": "getLatestPrice",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256[]",
+          "name": "_thresholds",
+          "type": "uint256[]"
+        },
+        {
+          "internalType": "string[]",
+          "name": "_cids",
+          "type": "string[]"
+        }
+      ],
+      "name": "proposeCampaign",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "tokenToPriceFeed",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "userInfo",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "ethAmount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "timeEntered",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "powerAccumulated",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_campaignId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "_tokenAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "withdraw",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_tokenAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "withdraw",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "withdrawETH",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x6a746d38eec1007c0bf7d64e5a88084442de1fe2a289284d86b3ec5384ebaf80",
+  "receipt": {
+    "to": null,
+    "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "contractAddress": "0x3462dd3c28F1548b1efe27EFc8DDB95326aB8e58",
+    "transactionIndex": 0,
+    "gasUsed": "815780",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x0c90d2a6c88353e86fd35978f0ac96e322659643d020f9d94c14cbe87f831177",
+    "transactionHash": "0x6a746d38eec1007c0bf7d64e5a88084442de1fe2a289284d86b3ec5384ebaf80",
+    "logs": [],
+    "blockNumber": 27524211,
+    "cumulativeGasUsed": "815780",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0x2a58E9bbb5434FdA7FF78051a4B82cb0EF669C17",
+    "0x6C9fB0D5bD9429eb9Cd96B85B81d872281771E6B",
+    [
+      "0x9A753f0F7886C9fbF63cF59D0D4423C5eFaCE95B",
+      "0xb685400156cF3CBE8725958DeAA61436727A30c3"
+    ],
+    [
+      "0x0FCAa9c899EC5A91eBc3D5Dd869De833b06fB046",
+      "0xd0D5e3DB44DE05E9F294BB0a3bEEaF030DE24Ada"
+    ]
+  ],
+  "numDeployments": 1,
+  "solcInputHash": "66d5551d12679a7c3afb789b9098e772",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.10+commit.fc410830\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"contract IWETHGateway\",\"name\":\"_WETH_GATEWAY\",\"type\":\"address\"},{\"internalType\":\"contract IPool\",\"name\":\"_AAVE_POOL\",\"type\":\"address\"},{\"internalType\":\"address[]\",\"name\":\"_tokenAddresses\",\"type\":\"address[]\"},{\"internalType\":\"address[]\",\"name\":\"_priceFeeds\",\"type\":\"address[]\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_campaignAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"_campaignId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256[]\",\"name\":\"_thresholds\",\"type\":\"uint256[]\"}],\"name\":\"CampaignProposed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"_user\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"_id\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"_address\",\"type\":\"address\"}],\"name\":\"ClaimBadge\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"_user\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"_tokenAddress\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"Deposited\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"_user\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"DepositedETH\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"_user\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"_tokenAddress\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"Withdrawn\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"_user\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"WithdrawnETH\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"AAVE_POOL\",\"outputs\":[{\"internalType\":\"contract IPool\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"WETH_GATEWAY\",\"outputs\":[{\"internalType\":\"contract IWETHGateway\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_campaignId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_milestone\",\"type\":\"uint256\"}],\"name\":\"claimBadge\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"claimBadge\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_tokenAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"deposit\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_campaignId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_tokenAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"deposit\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"depositETH\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getCampaignCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_priceFeed\",\"type\":\"address\"}],\"name\":\"getLatestPrice\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"_thresholds\",\"type\":\"uint256[]\"},{\"internalType\":\"string[]\",\"name\":\"_cids\",\"type\":\"string[]\"}],\"name\":\"proposeCampaign\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"tokenToPriceFeed\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"userInfo\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"ethAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"timeEntered\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"powerAccumulated\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_campaignId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_tokenAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"withdraw\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_tokenAddress\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"withdraw\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"withdrawETH\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"claimBadge()\":{\"returns\":{\"_0\":\"The address of the registered for the specified id\"}},\"claimBadge(uint256,uint256)\":{\"params\":{\"_campaignId\":\"The id of the campaign to claim from\",\"_milestone\":\"The milestone of the reward\"}},\"deposit(address,uint256)\":{\"params\":{\"_amount\":\"The amount of tokens to deposit\",\"_tokenAddress\":\"The address of the token to deposit\"}},\"deposit(uint256,address,uint256)\":{\"params\":{\"_amount\":\"The amount of tokens to deposit\",\"_tokenAddress\":\"The address of the token to deposit\"}},\"depositETH(uint256)\":{\"params\":{\"_amount\":\"The amount of tokens to deposit\"}},\"getLatestPrice(address)\":{\"returns\":{\"_0\":\"The value of the token in USD\"}},\"withdraw(address,uint256)\":{\"params\":{\"_amount\":\"The amount of tokens to withdraw\",\"_tokenAddress\":\"The address of the token to withdraw\"}},\"withdraw(uint256,address,uint256)\":{\"params\":{\"_amount\":\"The amount of tokens to withdraw\",\"_tokenAddress\":\"The address of the token to withdraw\"}},\"withdrawETH(uint256)\":{\"params\":{\"_amount\":\"The amount of tokens to withdraw\"}}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"claimBadge()\":{\"notice\":\"Claim badges from GAAVE\"},\"claimBadge(uint256,uint256)\":{\"notice\":\"Claim badges from GAAVE\"},\"deposit(address,uint256)\":{\"notice\":\"Deposit Crypto into GAAVE\"},\"deposit(uint256,address,uint256)\":{\"notice\":\"Deposit Crypto into GAAVE\"},\"depositETH(uint256)\":{\"notice\":\"Deposit ETH into GAAVE\"},\"getLatestPrice(address)\":{\"notice\":\"Calculate the value of deposit based on the token's address\"},\"withdraw(address,uint256)\":{\"notice\":\"Withdraw Crypto from GAAVE\"},\"withdraw(uint256,address,uint256)\":{\"notice\":\"Withdraw Crypto from GAAVE\"},\"withdrawETH(uint256)\":{\"notice\":\"Withdraw ETH from GAAVE\"}},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/GAAVECore.sol\":\"GAAVECore\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity ^0.8.0;\\n\\ninterface AggregatorV3Interface {\\n  function decimals() external view returns (uint8);\\n\\n  function description() external view returns (string memory);\\n\\n  function version() external view returns (uint256);\\n\\n  function getRoundData(uint80 _roundId)\\n    external\\n    view\\n    returns (\\n      uint80 roundId,\\n      int256 answer,\\n      uint256 startedAt,\\n      uint256 updatedAt,\\n      uint80 answeredInRound\\n    );\\n\\n  function latestRoundData()\\n    external\\n    view\\n    returns (\\n      uint80 roundId,\\n      int256 answer,\\n      uint256 startedAt,\\n      uint256 updatedAt,\\n      uint80 answeredInRound\\n    );\\n}\\n\",\"keccak256\":\"0x6e6e4b0835904509406b070ee173b5bc8f677c19421b76be38aea3b1b3d30846\",\"license\":\"MIT\"},\"@openzeppelin/contracts/token/ERC20/IERC20.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v4.6.0) (token/ERC20/IERC20.sol)\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @dev Interface of the ERC20 standard as defined in the EIP.\\n */\\ninterface IERC20 {\\n    /**\\n     * @dev Emitted when `value` tokens are moved from one account (`from`) to\\n     * another (`to`).\\n     *\\n     * Note that `value` may be zero.\\n     */\\n    event Transfer(address indexed from, address indexed to, uint256 value);\\n\\n    /**\\n     * @dev Emitted when the allowance of a `spender` for an `owner` is set by\\n     * a call to {approve}. `value` is the new allowance.\\n     */\\n    event Approval(address indexed owner, address indexed spender, uint256 value);\\n\\n    /**\\n     * @dev Returns the amount of tokens in existence.\\n     */\\n    function totalSupply() external view returns (uint256);\\n\\n    /**\\n     * @dev Returns the amount of tokens owned by `account`.\\n     */\\n    function balanceOf(address account) external view returns (uint256);\\n\\n    /**\\n     * @dev Moves `amount` tokens from the caller's account to `to`.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transfer(address to, uint256 amount) external returns (bool);\\n\\n    /**\\n     * @dev Returns the remaining number of tokens that `spender` will be\\n     * allowed to spend on behalf of `owner` through {transferFrom}. This is\\n     * zero by default.\\n     *\\n     * This value changes when {approve} or {transferFrom} are called.\\n     */\\n    function allowance(address owner, address spender) external view returns (uint256);\\n\\n    /**\\n     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * IMPORTANT: Beware that changing an allowance with this method brings the risk\\n     * that someone may use both the old and the new allowance by unfortunate\\n     * transaction ordering. One possible solution to mitigate this race\\n     * condition is to first reduce the spender's allowance to 0 and set the\\n     * desired value afterwards:\\n     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729\\n     *\\n     * Emits an {Approval} event.\\n     */\\n    function approve(address spender, uint256 amount) external returns (bool);\\n\\n    /**\\n     * @dev Moves `amount` tokens from `from` to `to` using the\\n     * allowance mechanism. `amount` is then deducted from the caller's\\n     * allowance.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transferFrom(\\n        address from,\\n        address to,\\n        uint256 amount\\n    ) external returns (bool);\\n}\\n\",\"keccak256\":\"0x9750c6b834f7b43000631af5cc30001c5f547b3ceb3635488f140f60e897ea6b\",\"license\":\"MIT\"},\"contracts/GAAVECore.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\r\\npragma solidity 0.8.10;\\r\\n\\r\\nimport \\\"./interface/IGAAVECore.sol\\\";\\r\\nimport \\\"./interface/IWETHGateway.sol\\\";\\r\\nimport \\\"./interface/IPool.sol\\\";\\r\\n\\r\\n// import IERC20 from openzeppelin\\r\\nimport \\\"@openzeppelin/contracts/token/ERC20/IERC20.sol\\\";\\r\\n\\r\\nimport \\\"@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol\\\";\\r\\n\\r\\ncontract GAAVECore is IGAAVECore {\\r\\n    // Maps campaignId to Campaign\\r\\n    mapping(uint256 => Campaign) private campaigns;\\r\\n\\r\\n    // campaign id to user address to user info\\r\\n    mapping(uint256 => mapping(address => User)) public userInfo;\\r\\n\\r\\n    // Maps token address to Chainlink Price Feed\\r\\n    mapping(address => address) public tokenToPriceFeed;\\r\\n\\r\\n    // To deposit ETH/MATIC\\r\\n    IWETHGateway public WETH_GATEWAY;\\r\\n\\r\\n    // To deposit token assets (USDT, DAI, USDC, AAVE, etc)\\r\\n    IPool public AAVE_POOL;\\r\\n\\r\\n    constructor(\\r\\n        IWETHGateway _WETH_GATEWAY,\\r\\n        IPool _AAVE_POOL,\\r\\n        address[] memory _tokenAddresses,\\r\\n        address[] memory _priceFeeds\\r\\n    ) {\\r\\n        require(\\r\\n            _tokenAddresses.length == _priceFeeds.length,\\r\\n            \\\"GAAVECore: number of token addresses must match price feeds\\\"\\r\\n        );\\r\\n        WETH_GATEWAY = _WETH_GATEWAY;\\r\\n        AAVE_POOL = _AAVE_POOL;\\r\\n\\r\\n        for (uint256 i = 0; i < _tokenAddresses.length; i++) {\\r\\n            tokenToPriceFeed[_tokenAddresses[i]] = _priceFeeds[i];\\r\\n        }\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @notice Deposit Crypto into GAAVE\\r\\n     * @param _tokenAddress The address of the token to deposit\\r\\n     * @param _amount The amount of tokens to deposit\\r\\n     */\\r\\n    function deposit(\\r\\n        uint256 _campaignId,\\r\\n        address _tokenAddress,\\r\\n        uint256 _amount\\r\\n    ) external {\\r\\n        User storage user = userInfo[_campaignId][msg.sender];\\r\\n        uint256 timestamp = block.timestamp;\\r\\n        uint256 currentPrice = getLatestPrice(tokenToPriceFeed[_tokenAddress]);\\r\\n        // if this is user's first time depositing this token, set powerAccumulated to 0,\\r\\n        // log amount and timestamp\\r\\n        if (user.tokenAmount[_tokenAddress] == 0) {\\r\\n            user.powerAccumulated = 0;\\r\\n            user.tokenAmount[_tokenAddress] = uint256(_amount);\\r\\n            user.lastPrice[_tokenAddress] = currentPrice;\\r\\n            user.timeEntered = timestamp;\\r\\n        } else {\\r\\n            // else, retrieve already accumulated power and reset timestamp to current timestamp\\r\\n            // Power = currentAmount * (prevPrice + currentPrice) / 2 * (currentTimestamp - startTimestamp)\\r\\n            user.powerAccumulated +=\\r\\n                ((user.tokenAmount[_tokenAddress] *\\r\\n                    (currentPrice + user.lastPrice[_tokenAddress])) / 2) *\\r\\n                (timestamp - user.timeEntered);\\r\\n            user.tokenAmount[_tokenAddress] += _amount; // Update Token Deposited\\r\\n            user.timeEntered = timestamp; // Update Time Entered\\r\\n            user.lastPrice[_tokenAddress] = currentPrice; // Update Last Entry Price of current token\\r\\n        }\\r\\n\\r\\n        // Deposit to AAVE and lend\\r\\n        AAVE_POOL.deposit(_tokenAddress, _amount, address(this), 0);\\r\\n\\r\\n        // Emit Event\\r\\n        emit Deposited(msg.sender, _tokenAddress, _amount);\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @notice Withdraw Crypto from GAAVE\\r\\n     * @param _tokenAddress The address of the token to withdraw\\r\\n     * @param _amount The amount of tokens to withdraw\\r\\n     */\\r\\n    function withdraw(\\r\\n        uint256 _campaignId,\\r\\n        address _tokenAddress,\\r\\n        uint256 _amount\\r\\n    ) external {\\r\\n        User storage user = userInfo[_campaignId][msg.sender];\\r\\n        require(\\r\\n            user.tokenAmount[_tokenAddress] > _amount,\\r\\n            \\\"GAAVECore: Withdraw amount more than existing amount\\\"\\r\\n        );\\r\\n        uint256 currentPrice = getLatestPrice(tokenToPriceFeed[_tokenAddress]);\\r\\n        // withdraw from AAVE\\r\\n        AAVE_POOL.withdraw(_tokenAddress, _amount, msg.sender);\\r\\n        uint256 timestamp = block.timestamp;\\r\\n        user.powerAccumulated +=\\r\\n            ((user.tokenAmount[_tokenAddress] *\\r\\n                (currentPrice + user.lastPrice[_tokenAddress])) / 2) *\\r\\n            (timestamp - user.timeEntered);\\r\\n        user.tokenAmount[_tokenAddress] -= _amount; // Update Token Deposited\\r\\n        user.timeEntered = timestamp;\\r\\n\\r\\n        // emit event\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @notice Deposit ETH into GAAVE\\r\\n     * @param _amount The amount of tokens to deposit\\r\\n     */\\r\\n    function depositETH(uint256 _amount) external payable {\\r\\n        // Transfer ETH from user to GAAVE\\r\\n        // require(msg.sender.call{value: _amount}(\\\"\\\"));\\r\\n    }\\r\\n\\r\\n    /**\\r\\n     * @notice Withdraw ETH from GAAVE\\r\\n     * @param _amount The amount of tokens to withdraw\\r\\n     */\\r\\n    function withdrawETH(uint256 _amount) external {}\\r\\n\\r\\n    /**\\r\\n     * @notice Claim badges from GAAVE\\r\\n     * @return The address of the registered for the specified id\\r\\n     */\\r\\n    function claimBadge() external returns (uint256) {}\\r\\n\\r\\n    /**\\r\\n     * @notice Calculate the value of deposit based on the token's address\\r\\n     * @return The value of the token in USD\\r\\n     */\\r\\n\\r\\n    function getLatestPrice(address _priceFeed) public view returns (uint256) {\\r\\n        AggregatorV3Interface priceFeed = AggregatorV3Interface(_priceFeed);\\r\\n        (\\r\\n            ,\\r\\n            /*uint80 roundID*/\\r\\n            int256 price, /*uint startedAt*/ /*uint timeStamp*/ /*uint80 answeredInRound*/\\r\\n            ,\\r\\n            ,\\r\\n\\r\\n        ) = priceFeed.latestRoundData();\\r\\n        return uint256(price);\\r\\n    }\\r\\n\\r\\n    function deposit(address _tokenAddress, uint256 _amount)\\r\\n        external\\r\\n        override\\r\\n    {}\\r\\n\\r\\n    function withdraw(address _tokenAddress, uint256 _amount)\\r\\n        external\\r\\n        override\\r\\n    {}\\r\\n\\r\\n    function claimBadge(uint256 _campaignId, uint256 _milestone)\\r\\n        external\\r\\n        override\\r\\n    {}\\r\\n\\r\\n    function proposeCampaign(\\r\\n        uint256[] memory _thresholds,\\r\\n        string[] memory _cids\\r\\n    ) external override {}\\r\\n\\r\\n    function getCampaignCount() external view override returns (uint256) {}\\r\\n}\\r\\n\",\"keccak256\":\"0x56ea405aa32b6e533a072cf0e208f83ada76fef750bde75114e92dcf759e1d50\",\"license\":\"MIT\"},\"contracts/interface/DataTypes.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\r\\npragma solidity 0.8.10;\\r\\n\\r\\nlibrary DataTypes {\\r\\n    struct ReserveData {\\r\\n        //stores the reserve configuration\\r\\n        ReserveConfigurationMap configuration;\\r\\n        //the liquidity index. Expressed in ray\\r\\n        uint128 liquidityIndex;\\r\\n        //the current supply rate. Expressed in ray\\r\\n        uint128 currentLiquidityRate;\\r\\n        //variable borrow index. Expressed in ray\\r\\n        uint128 variableBorrowIndex;\\r\\n        //the current variable borrow rate. Expressed in ray\\r\\n        uint128 currentVariableBorrowRate;\\r\\n        //the current stable borrow rate. Expressed in ray\\r\\n        uint128 currentStableBorrowRate;\\r\\n        //timestamp of last update\\r\\n        uint40 lastUpdateTimestamp;\\r\\n        //the id of the reserve. Represents the position in the list of the active reserves\\r\\n        uint16 id;\\r\\n        //aToken address\\r\\n        address aTokenAddress;\\r\\n        //stableDebtToken address\\r\\n        address stableDebtTokenAddress;\\r\\n        //variableDebtToken address\\r\\n        address variableDebtTokenAddress;\\r\\n        //address of the interest rate strategy\\r\\n        address interestRateStrategyAddress;\\r\\n        //the current treasury balance, scaled\\r\\n        uint128 accruedToTreasury;\\r\\n        //the outstanding unbacked aTokens minted through the bridging feature\\r\\n        uint128 unbacked;\\r\\n        //the outstanding debt borrowed against this asset in isolation mode\\r\\n        uint128 isolationModeTotalDebt;\\r\\n    }\\r\\n\\r\\n    struct ReserveConfigurationMap {\\r\\n        //bit 0-15: LTV\\r\\n        //bit 16-31: Liq. threshold\\r\\n        //bit 32-47: Liq. bonus\\r\\n        //bit 48-55: Decimals\\r\\n        //bit 56: reserve is active\\r\\n        //bit 57: reserve is frozen\\r\\n        //bit 58: borrowing is enabled\\r\\n        //bit 59: stable rate borrowing enabled\\r\\n        //bit 60: asset is paused\\r\\n        //bit 61: borrowing in isolation mode is enabled\\r\\n        //bit 62-63: reserved\\r\\n        //bit 64-79: reserve factor\\r\\n        //bit 80-115 borrow cap in whole tokens, borrowCap == 0 => no cap\\r\\n        //bit 116-151 supply cap in whole tokens, supplyCap == 0 => no cap\\r\\n        //bit 152-167 liquidation protocol fee\\r\\n        //bit 168-175 eMode category\\r\\n        //bit 176-211 unbacked mint cap in whole tokens, unbackedMintCap == 0 => minting disabled\\r\\n        //bit 212-251 debt ceiling for isolation mode with (ReserveConfiguration::DEBT_CEILING_DECIMALS) decimals\\r\\n        //bit 252-255 unused\\r\\n\\r\\n        uint256 data;\\r\\n    }\\r\\n\\r\\n    struct UserConfigurationMap {\\r\\n        /**\\r\\n         * @dev Bitmap of the users collaterals and borrows. It is divided in pairs of bits, one pair per asset.\\r\\n         * The first bit indicates if an asset is used as collateral by the user, the second whether an\\r\\n         * asset is borrowed by the user.\\r\\n         */\\r\\n        uint256 data;\\r\\n    }\\r\\n\\r\\n    struct EModeCategory {\\r\\n        // each eMode category has a custom ltv and liquidation threshold\\r\\n        uint16 ltv;\\r\\n        uint16 liquidationThreshold;\\r\\n        uint16 liquidationBonus;\\r\\n        // each eMode category may or may not have a custom oracle to override the individual assets price oracles\\r\\n        address priceSource;\\r\\n        string label;\\r\\n    }\\r\\n\\r\\n    enum InterestRateMode {\\r\\n        NONE,\\r\\n        STABLE,\\r\\n        VARIABLE\\r\\n    }\\r\\n\\r\\n    struct ReserveCache {\\r\\n        uint256 currScaledVariableDebt;\\r\\n        uint256 nextScaledVariableDebt;\\r\\n        uint256 currPrincipalStableDebt;\\r\\n        uint256 currAvgStableBorrowRate;\\r\\n        uint256 currTotalStableDebt;\\r\\n        uint256 nextAvgStableBorrowRate;\\r\\n        uint256 nextTotalStableDebt;\\r\\n        uint256 currLiquidityIndex;\\r\\n        uint256 nextLiquidityIndex;\\r\\n        uint256 currVariableBorrowIndex;\\r\\n        uint256 nextVariableBorrowIndex;\\r\\n        uint256 currLiquidityRate;\\r\\n        uint256 currVariableBorrowRate;\\r\\n        uint256 reserveFactor;\\r\\n        ReserveConfigurationMap reserveConfiguration;\\r\\n        address aTokenAddress;\\r\\n        address stableDebtTokenAddress;\\r\\n        address variableDebtTokenAddress;\\r\\n        uint40 reserveLastUpdateTimestamp;\\r\\n        uint40 stableDebtLastUpdateTimestamp;\\r\\n    }\\r\\n\\r\\n    struct ExecuteLiquidationCallParams {\\r\\n        uint256 reservesCount;\\r\\n        uint256 debtToCover;\\r\\n        address collateralAsset;\\r\\n        address debtAsset;\\r\\n        address user;\\r\\n        bool receiveAToken;\\r\\n        address priceOracle;\\r\\n        uint8 userEModeCategory;\\r\\n        address priceOracleSentinel;\\r\\n    }\\r\\n\\r\\n    struct ExecuteSupplyParams {\\r\\n        address asset;\\r\\n        uint256 amount;\\r\\n        address onBehalfOf;\\r\\n        uint16 referralCode;\\r\\n    }\\r\\n\\r\\n    struct ExecuteBorrowParams {\\r\\n        address asset;\\r\\n        address user;\\r\\n        address onBehalfOf;\\r\\n        uint256 amount;\\r\\n        InterestRateMode interestRateMode;\\r\\n        uint16 referralCode;\\r\\n        bool releaseUnderlying;\\r\\n        uint256 maxStableRateBorrowSizePercent;\\r\\n        uint256 reservesCount;\\r\\n        address oracle;\\r\\n        uint8 userEModeCategory;\\r\\n        address priceOracleSentinel;\\r\\n    }\\r\\n\\r\\n    struct ExecuteRepayParams {\\r\\n        address asset;\\r\\n        uint256 amount;\\r\\n        InterestRateMode interestRateMode;\\r\\n        address onBehalfOf;\\r\\n        bool useATokens;\\r\\n    }\\r\\n\\r\\n    struct ExecuteWithdrawParams {\\r\\n        address asset;\\r\\n        uint256 amount;\\r\\n        address to;\\r\\n        uint256 reservesCount;\\r\\n        address oracle;\\r\\n        uint8 userEModeCategory;\\r\\n    }\\r\\n\\r\\n    struct ExecuteSetUserEModeParams {\\r\\n        uint256 reservesCount;\\r\\n        address oracle;\\r\\n        uint8 categoryId;\\r\\n    }\\r\\n\\r\\n    struct FinalizeTransferParams {\\r\\n        address asset;\\r\\n        address from;\\r\\n        address to;\\r\\n        uint256 amount;\\r\\n        uint256 balanceFromBefore;\\r\\n        uint256 balanceToBefore;\\r\\n        uint256 reservesCount;\\r\\n        address oracle;\\r\\n        uint8 fromEModeCategory;\\r\\n    }\\r\\n\\r\\n    struct FlashloanParams {\\r\\n        address receiverAddress;\\r\\n        address[] assets;\\r\\n        uint256[] amounts;\\r\\n        uint256[] interestRateModes;\\r\\n        address onBehalfOf;\\r\\n        bytes params;\\r\\n        uint16 referralCode;\\r\\n        uint256 flashLoanPremiumToProtocol;\\r\\n        uint256 flashLoanPremiumTotal;\\r\\n        uint256 maxStableRateBorrowSizePercent;\\r\\n        uint256 reservesCount;\\r\\n        address addressesProvider;\\r\\n        uint8 userEModeCategory;\\r\\n        bool isAuthorizedFlashBorrower;\\r\\n    }\\r\\n\\r\\n    struct FlashloanSimpleParams {\\r\\n        address receiverAddress;\\r\\n        address asset;\\r\\n        uint256 amount;\\r\\n        bytes params;\\r\\n        uint16 referralCode;\\r\\n        uint256 flashLoanPremiumToProtocol;\\r\\n        uint256 flashLoanPremiumTotal;\\r\\n    }\\r\\n\\r\\n    struct FlashLoanRepaymentParams {\\r\\n        uint256 amount;\\r\\n        uint256 totalPremium;\\r\\n        uint256 flashLoanPremiumToProtocol;\\r\\n        address asset;\\r\\n        address receiverAddress;\\r\\n        uint16 referralCode;\\r\\n    }\\r\\n\\r\\n    struct CalculateUserAccountDataParams {\\r\\n        UserConfigurationMap userConfig;\\r\\n        uint256 reservesCount;\\r\\n        address user;\\r\\n        address oracle;\\r\\n        uint8 userEModeCategory;\\r\\n    }\\r\\n\\r\\n    struct ValidateBorrowParams {\\r\\n        ReserveCache reserveCache;\\r\\n        UserConfigurationMap userConfig;\\r\\n        address asset;\\r\\n        address userAddress;\\r\\n        uint256 amount;\\r\\n        InterestRateMode interestRateMode;\\r\\n        uint256 maxStableLoanPercent;\\r\\n        uint256 reservesCount;\\r\\n        address oracle;\\r\\n        uint8 userEModeCategory;\\r\\n        address priceOracleSentinel;\\r\\n        bool isolationModeActive;\\r\\n        address isolationModeCollateralAddress;\\r\\n        uint256 isolationModeDebtCeiling;\\r\\n    }\\r\\n\\r\\n    struct ValidateLiquidationCallParams {\\r\\n        ReserveCache debtReserveCache;\\r\\n        uint256 totalDebt;\\r\\n        uint256 healthFactor;\\r\\n        address priceOracleSentinel;\\r\\n    }\\r\\n\\r\\n    struct CalculateInterestRatesParams {\\r\\n        uint256 unbacked;\\r\\n        uint256 liquidityAdded;\\r\\n        uint256 liquidityTaken;\\r\\n        uint256 totalStableDebt;\\r\\n        uint256 totalVariableDebt;\\r\\n        uint256 averageStableBorrowRate;\\r\\n        uint256 reserveFactor;\\r\\n        address reserve;\\r\\n        address aToken;\\r\\n    }\\r\\n\\r\\n    struct InitReserveParams {\\r\\n        address asset;\\r\\n        address aTokenAddress;\\r\\n        address stableDebtAddress;\\r\\n        address variableDebtAddress;\\r\\n        address interestRateStrategyAddress;\\r\\n        uint16 reservesCount;\\r\\n        uint16 maxNumberReserves;\\r\\n    }\\r\\n}\\r\\n\",\"keccak256\":\"0x284c378e44b2c75b5bb9aec663db538417def88a591a7fa91cb09a3d577d78e1\",\"license\":\"BUSL-1.1\"},\"contracts/interface/IGAAVECore.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\r\\npragma solidity 0.8.10;\\r\\n\\r\\ninterface IGAAVECore {\\r\\n    struct Campaign {\\r\\n        uint256[] badgeIds;\\r\\n        uint256[] thresholds;\\r\\n    }\\r\\n\\r\\n    struct User {\\r\\n        mapping(address => uint256) tokenAmount;\\r\\n        mapping(address => uint256) lastPrice;\\r\\n        uint256 ethAmount;\\r\\n        uint256 timeEntered;\\r\\n        uint256 powerAccumulated;\\r\\n    }\\r\\n\\r\\n    event Deposited(\\r\\n        address indexed _user,\\r\\n        address indexed _tokenAddress,\\r\\n        uint256 indexed _amount\\r\\n    );\\r\\n    event Withdrawn(\\r\\n        address indexed _user,\\r\\n        address indexed _tokenAddress,\\r\\n        uint256 indexed _amount\\r\\n    );\\r\\n    event DepositedETH(address indexed _user, uint256 indexed _amount);\\r\\n    event WithdrawnETH(address indexed _user, uint256 indexed _amount);\\r\\n    event ClaimBadge(\\r\\n        address indexed _user,\\r\\n        uint256 indexed _id,\\r\\n        address _address\\r\\n    );\\r\\n    event CampaignProposed(\\r\\n        address _campaignAddress,\\r\\n        uint256 _campaignId,\\r\\n        uint256[] _thresholds\\r\\n    );\\r\\n\\r\\n    /**\\r\\n     * @notice Deposit Crypto into GAAVE\\r\\n     * @param _tokenAddress The address of the token to deposit\\r\\n     * @param _amount The amount of tokens to deposit\\r\\n     */\\r\\n    function deposit(address _tokenAddress, uint256 _amount) external;\\r\\n\\r\\n    /**\\r\\n     * @notice Withdraw Crypto from GAAVE\\r\\n     * @param _tokenAddress The address of the token to withdraw\\r\\n     * @param _amount The amount of tokens to withdraw\\r\\n     */\\r\\n    function withdraw(address _tokenAddress, uint256 _amount) external;\\r\\n\\r\\n    /**\\r\\n     * @notice Deposit ETH into GAAVE\\r\\n     * @param _amount The amount of tokens to deposit\\r\\n     */\\r\\n    function depositETH(uint256 _amount) external payable;\\r\\n\\r\\n    /**\\r\\n     * @notice Withdraw ETH from GAAVE\\r\\n     * @param _amount The amount of tokens to withdraw\\r\\n     */\\r\\n    function withdrawETH(uint256 _amount) external;\\r\\n\\r\\n    /**\\r\\n     * @notice Claim badges from GAAVE\\r\\n     * @param _campaignId The id of the campaign to claim from\\r\\n     * @param _milestone The milestone of the reward\\r\\n     */\\r\\n    function claimBadge(uint256 _campaignId, uint256 _milestone) external;\\r\\n\\r\\n    function proposeCampaign(\\r\\n        uint256[] memory _thresholds,\\r\\n        string[] memory _cids\\r\\n    ) external;\\r\\n\\r\\n    function getCampaignCount() external view returns (uint256);\\r\\n}\\r\\n\",\"keccak256\":\"0xc81fcb82ac3517ddd200e8bc1ea51e04bc7ad0a00799c68c987df9f9f47cb8b1\",\"license\":\"MIT\"},\"contracts/interface/IPool.sol\":{\"content\":\"// SPDX-License-Identifier: AGPL-3.0\\r\\npragma solidity 0.8.10;\\r\\n\\r\\nimport {IPoolAddressesProvider} from \\\"./IPoolAddressesProvider.sol\\\";\\r\\nimport {DataTypes} from \\\"./DataTypes.sol\\\";\\r\\n\\r\\n/**\\r\\n * @title IPool\\r\\n * @author Aave\\r\\n * @notice Defines the basic interface for an Aave Pool.\\r\\n **/\\r\\ninterface IPool {\\r\\n    /**\\r\\n     * @dev Emitted on mintUnbacked()\\r\\n     * @param reserve The address of the underlying asset of the reserve\\r\\n     * @param user The address initiating the supply\\r\\n     * @param onBehalfOf The beneficiary of the supplied assets, receiving the aTokens\\r\\n     * @param amount The amount of supplied assets\\r\\n     * @param referralCode The referral code used\\r\\n     **/\\r\\n    event MintUnbacked(\\r\\n        address indexed reserve,\\r\\n        address user,\\r\\n        address indexed onBehalfOf,\\r\\n        uint256 amount,\\r\\n        uint16 indexed referralCode\\r\\n    );\\r\\n\\r\\n    /**\\r\\n     * @dev Emitted on backUnbacked()\\r\\n     * @param reserve The address of the underlying asset of the reserve\\r\\n     * @param backer The address paying for the backing\\r\\n     * @param amount The amount added as backing\\r\\n     * @param fee The amount paid in fees\\r\\n     **/\\r\\n    event BackUnbacked(\\r\\n        address indexed reserve,\\r\\n        address indexed backer,\\r\\n        uint256 amount,\\r\\n        uint256 fee\\r\\n    );\\r\\n\\r\\n    /**\\r\\n     * @dev Emitted on supply()\\r\\n     * @param reserve The address of the underlying asset of the reserve\\r\\n     * @param user The address initiating the supply\\r\\n     * @param onBehalfOf The beneficiary of the supply, receiving the aTokens\\r\\n     * @param amount The amount supplied\\r\\n     * @param referralCode The referral code used\\r\\n     **/\\r\\n    event Supply(\\r\\n        address indexed reserve,\\r\\n        address user,\\r\\n        address indexed onBehalfOf,\\r\\n        uint256 amount,\\r\\n        uint16 indexed referralCode\\r\\n    );\\r\\n\\r\\n    /**\\r\\n     * @dev Emitted on withdraw()\\r\\n     * @param reserve The address of the underlying asset being withdrawn\\r\\n     * @param user The address initiating the withdrawal, owner of aTokens\\r\\n     * @param to The address that will receive the underlying\\r\\n     * @param amount The amount to be withdrawn\\r\\n     **/\\r\\n    event Withdraw(\\r\\n        address indexed reserve,\\r\\n        address indexed user,\\r\\n        address indexed to,\\r\\n        uint256 amount\\r\\n    );\\r\\n\\r\\n    /**\\r\\n     * @dev Emitted on borrow() and flashLoan() when debt needs to be opened\\r\\n     * @param reserve The address of the underlying asset being borrowed\\r\\n     * @param user The address of the user initiating the borrow(), receiving the funds on borrow() or just\\r\\n     * initiator of the transaction on flashLoan()\\r\\n     * @param onBehalfOf The address that will be getting the debt\\r\\n     * @param amount The amount borrowed out\\r\\n     * @param interestRateMode The rate mode: 1 for Stable, 2 for Variable\\r\\n     * @param borrowRate The numeric rate at which the user has borrowed, expressed in ray\\r\\n     * @param referralCode The referral code used\\r\\n     **/\\r\\n    event Borrow(\\r\\n        address indexed reserve,\\r\\n        address user,\\r\\n        address indexed onBehalfOf,\\r\\n        uint256 amount,\\r\\n        DataTypes.InterestRateMode interestRateMode,\\r\\n        uint256 borrowRate,\\r\\n        uint16 indexed referralCode\\r\\n    );\\r\\n\\r\\n    /**\\r\\n     * @dev Emitted on repay()\\r\\n     * @param reserve The address of the underlying asset of the reserve\\r\\n     * @param user The beneficiary of the repayment, getting his debt reduced\\r\\n     * @param repayer The address of the user initiating the repay(), providing the funds\\r\\n     * @param amount The amount repaid\\r\\n     * @param useATokens True if the repayment is done using aTokens, `false` if done with underlying asset directly\\r\\n     **/\\r\\n    event Repay(\\r\\n        address indexed reserve,\\r\\n        address indexed user,\\r\\n        address indexed repayer,\\r\\n        uint256 amount,\\r\\n        bool useATokens\\r\\n    );\\r\\n\\r\\n    /**\\r\\n     * @dev Emitted on swapBorrowRateMode()\\r\\n     * @param reserve The address of the underlying asset of the reserve\\r\\n     * @param user The address of the user swapping his rate mode\\r\\n     * @param interestRateMode The current interest rate mode of the position being swapped: 1 for Stable, 2 for Variable\\r\\n     **/\\r\\n    event SwapBorrowRateMode(\\r\\n        address indexed reserve,\\r\\n        address indexed user,\\r\\n        DataTypes.InterestRateMode interestRateMode\\r\\n    );\\r\\n\\r\\n    /**\\r\\n     * @dev Emitted on borrow(), repay() and liquidationCall() when using isolated assets\\r\\n     * @param asset The address of the underlying asset of the reserve\\r\\n     * @param totalDebt The total isolation mode debt for the reserve\\r\\n     */\\r\\n    event IsolationModeTotalDebtUpdated(\\r\\n        address indexed asset,\\r\\n        uint256 totalDebt\\r\\n    );\\r\\n\\r\\n    /**\\r\\n     * @dev Emitted when the user selects a certain asset category for eMode\\r\\n     * @param user The address of the user\\r\\n     * @param categoryId The category id\\r\\n     **/\\r\\n    event UserEModeSet(address indexed user, uint8 categoryId);\\r\\n\\r\\n    /**\\r\\n     * @dev Emitted on setUserUseReserveAsCollateral()\\r\\n     * @param reserve The address of the underlying asset of the reserve\\r\\n     * @param user The address of the user enabling the usage as collateral\\r\\n     **/\\r\\n    event ReserveUsedAsCollateralEnabled(\\r\\n        address indexed reserve,\\r\\n        address indexed user\\r\\n    );\\r\\n\\r\\n    /**\\r\\n     * @dev Emitted on setUserUseReserveAsCollateral()\\r\\n     * @param reserve The address of the underlying asset of the reserve\\r\\n     * @param user The address of the user enabling the usage as collateral\\r\\n     **/\\r\\n    event ReserveUsedAsCollateralDisabled(\\r\\n        address indexed reserve,\\r\\n        address indexed user\\r\\n    );\\r\\n\\r\\n    /**\\r\\n     * @dev Emitted on rebalanceStableBorrowRate()\\r\\n     * @param reserve The address of the underlying asset of the reserve\\r\\n     * @param user The address of the user for which the rebalance has been executed\\r\\n     **/\\r\\n    event RebalanceStableBorrowRate(\\r\\n        address indexed reserve,\\r\\n        address indexed user\\r\\n    );\\r\\n\\r\\n    /**\\r\\n     * @dev Emitted on flashLoan()\\r\\n     * @param target The address of the flash loan receiver contract\\r\\n     * @param initiator The address initiating the flash loan\\r\\n     * @param asset The address of the asset being flash borrowed\\r\\n     * @param amount The amount flash borrowed\\r\\n     * @param interestRateMode The flashloan mode: 0 for regular flashloan, 1 for Stable debt, 2 for Variable debt\\r\\n     * @param premium The fee flash borrowed\\r\\n     * @param referralCode The referral code used\\r\\n     **/\\r\\n    event FlashLoan(\\r\\n        address indexed target,\\r\\n        address initiator,\\r\\n        address indexed asset,\\r\\n        uint256 amount,\\r\\n        DataTypes.InterestRateMode interestRateMode,\\r\\n        uint256 premium,\\r\\n        uint16 indexed referralCode\\r\\n    );\\r\\n\\r\\n    /**\\r\\n     * @dev Emitted when a borrower is liquidated.\\r\\n     * @param collateralAsset The address of the underlying asset used as collateral, to receive as result of the liquidation\\r\\n     * @param debtAsset The address of the underlying borrowed asset to be repaid with the liquidation\\r\\n     * @param user The address of the borrower getting liquidated\\r\\n     * @param debtToCover The debt amount of borrowed `asset` the liquidator wants to cover\\r\\n     * @param liquidatedCollateralAmount The amount of collateral received by the liquidator\\r\\n     * @param liquidator The address of the liquidator\\r\\n     * @param receiveAToken True if the liquidators wants to receive the collateral aTokens, `false` if he wants\\r\\n     * to receive the underlying collateral asset directly\\r\\n     **/\\r\\n    event LiquidationCall(\\r\\n        address indexed collateralAsset,\\r\\n        address indexed debtAsset,\\r\\n        address indexed user,\\r\\n        uint256 debtToCover,\\r\\n        uint256 liquidatedCollateralAmount,\\r\\n        address liquidator,\\r\\n        bool receiveAToken\\r\\n    );\\r\\n\\r\\n    /**\\r\\n     * @dev Emitted when the state of a reserve is updated.\\r\\n     * @param reserve The address of the underlying asset of the reserve\\r\\n     * @param liquidityRate The next liquidity rate\\r\\n     * @param stableBorrowRate The next stable borrow rate\\r\\n     * @param variableBorrowRate The next variable borrow rate\\r\\n     * @param liquidityIndex The next liquidity index\\r\\n     * @param variableBorrowIndex The next variable borrow index\\r\\n     **/\\r\\n    event ReserveDataUpdated(\\r\\n        address indexed reserve,\\r\\n        uint256 liquidityRate,\\r\\n        uint256 stableBorrowRate,\\r\\n        uint256 variableBorrowRate,\\r\\n        uint256 liquidityIndex,\\r\\n        uint256 variableBorrowIndex\\r\\n    );\\r\\n\\r\\n    /**\\r\\n     * @dev Emitted when the protocol treasury receives minted aTokens from the accrued interest.\\r\\n     * @param reserve The address of the reserve\\r\\n     * @param amountMinted The amount minted to the treasury\\r\\n     **/\\r\\n    event MintedToTreasury(address indexed reserve, uint256 amountMinted);\\r\\n\\r\\n    /**\\r\\n     * @dev Mints an `amount` of aTokens to the `onBehalfOf`\\r\\n     * @param asset The address of the underlying asset to mint\\r\\n     * @param amount The amount to mint\\r\\n     * @param onBehalfOf The address that will receive the aTokens\\r\\n     * @param referralCode Code used to register the integrator originating the operation, for potential rewards.\\r\\n     *   0 if the action is executed directly by the user, without any middle-man\\r\\n     **/\\r\\n    function mintUnbacked(\\r\\n        address asset,\\r\\n        uint256 amount,\\r\\n        address onBehalfOf,\\r\\n        uint16 referralCode\\r\\n    ) external;\\r\\n\\r\\n    /**\\r\\n     * @dev Back the current unbacked underlying with `amount` and pay `fee`.\\r\\n     * @param asset The address of the underlying asset to back\\r\\n     * @param amount The amount to back\\r\\n     * @param fee The amount paid in fees\\r\\n     **/\\r\\n    function backUnbacked(\\r\\n        address asset,\\r\\n        uint256 amount,\\r\\n        uint256 fee\\r\\n    ) external;\\r\\n\\r\\n    /**\\r\\n     * @notice Supplies an `amount` of underlying asset into the reserve, receiving in return overlying aTokens.\\r\\n     * - E.g. User supplies 100 USDC and gets in return 100 aUSDC\\r\\n     * @param asset The address of the underlying asset to supply\\r\\n     * @param amount The amount to be supplied\\r\\n     * @param onBehalfOf The address that will receive the aTokens, same as msg.sender if the user\\r\\n     *   wants to receive them on his own wallet, or a different address if the beneficiary of aTokens\\r\\n     *   is a different wallet\\r\\n     * @param referralCode Code used to register the integrator originating the operation, for potential rewards.\\r\\n     *   0 if the action is executed directly by the user, without any middle-man\\r\\n     **/\\r\\n    function supply(\\r\\n        address asset,\\r\\n        uint256 amount,\\r\\n        address onBehalfOf,\\r\\n        uint16 referralCode\\r\\n    ) external;\\r\\n\\r\\n    /**\\r\\n     * @notice Supply with transfer approval of asset to be supplied done via permit function\\r\\n     * see: https://eips.ethereum.org/EIPS/eip-2612 and https://eips.ethereum.org/EIPS/eip-713\\r\\n     * @param asset The address of the underlying asset to supply\\r\\n     * @param amount The amount to be supplied\\r\\n     * @param onBehalfOf The address that will receive the aTokens, same as msg.sender if the user\\r\\n     *   wants to receive them on his own wallet, or a different address if the beneficiary of aTokens\\r\\n     *   is a different wallet\\r\\n     * @param deadline The deadline timestamp that the permit is valid\\r\\n     * @param referralCode Code used to register the integrator originating the operation, for potential rewards.\\r\\n     *   0 if the action is executed directly by the user, without any middle-man\\r\\n     * @param permitV The V parameter of ERC712 permit sig\\r\\n     * @param permitR The R parameter of ERC712 permit sig\\r\\n     * @param permitS The S parameter of ERC712 permit sig\\r\\n     **/\\r\\n    function supplyWithPermit(\\r\\n        address asset,\\r\\n        uint256 amount,\\r\\n        address onBehalfOf,\\r\\n        uint16 referralCode,\\r\\n        uint256 deadline,\\r\\n        uint8 permitV,\\r\\n        bytes32 permitR,\\r\\n        bytes32 permitS\\r\\n    ) external;\\r\\n\\r\\n    /**\\r\\n     * @notice Withdraws an `amount` of underlying asset from the reserve, burning the equivalent aTokens owned\\r\\n     * E.g. User has 100 aUSDC, calls withdraw() and receives 100 USDC, burning the 100 aUSDC\\r\\n     * @param asset The address of the underlying asset to withdraw\\r\\n     * @param amount The underlying amount to be withdrawn\\r\\n     *   - Send the value type(uint256).max in order to withdraw the whole aToken balance\\r\\n     * @param to The address that will receive the underlying, same as msg.sender if the user\\r\\n     *   wants to receive it on his own wallet, or a different address if the beneficiary is a\\r\\n     *   different wallet\\r\\n     * @return The final amount withdrawn\\r\\n     **/\\r\\n    function withdraw(\\r\\n        address asset,\\r\\n        uint256 amount,\\r\\n        address to\\r\\n    ) external returns (uint256);\\r\\n\\r\\n    /**\\r\\n     * @notice Allows users to borrow a specific `amount` of the reserve underlying asset, provided that the borrower\\r\\n     * already supplied enough collateral, or he was given enough allowance by a credit delegator on the\\r\\n     * corresponding debt token (StableDebtToken or VariableDebtToken)\\r\\n     * - E.g. User borrows 100 USDC passing as `onBehalfOf` his own address, receiving the 100 USDC in his wallet\\r\\n     *   and 100 stable/variable debt tokens, depending on the `interestRateMode`\\r\\n     * @param asset The address of the underlying asset to borrow\\r\\n     * @param amount The amount to be borrowed\\r\\n     * @param interestRateMode The interest rate mode at which the user wants to borrow: 1 for Stable, 2 for Variable\\r\\n     * @param referralCode The code used to register the integrator originating the operation, for potential rewards.\\r\\n     *   0 if the action is executed directly by the user, without any middle-man\\r\\n     * @param onBehalfOf The address of the user who will receive the debt. Should be the address of the borrower itself\\r\\n     * calling the function if he wants to borrow against his own collateral, or the address of the credit delegator\\r\\n     * if he has been given credit delegation allowance\\r\\n     **/\\r\\n    function borrow(\\r\\n        address asset,\\r\\n        uint256 amount,\\r\\n        uint256 interestRateMode,\\r\\n        uint16 referralCode,\\r\\n        address onBehalfOf\\r\\n    ) external;\\r\\n\\r\\n    /**\\r\\n     * @notice Repays a borrowed `amount` on a specific reserve, burning the equivalent debt tokens owned\\r\\n     * - E.g. User repays 100 USDC, burning 100 variable/stable debt tokens of the `onBehalfOf` address\\r\\n     * @param asset The address of the borrowed underlying asset previously borrowed\\r\\n     * @param amount The amount to repay\\r\\n     * - Send the value type(uint256).max in order to repay the whole debt for `asset` on the specific `debtMode`\\r\\n     * @param interestRateMode The interest rate mode at of the debt the user wants to repay: 1 for Stable, 2 for Variable\\r\\n     * @param onBehalfOf The address of the user who will get his debt reduced/removed. Should be the address of the\\r\\n     * user calling the function if he wants to reduce/remove his own debt, or the address of any other\\r\\n     * other borrower whose debt should be removed\\r\\n     * @return The final amount repaid\\r\\n     **/\\r\\n    function repay(\\r\\n        address asset,\\r\\n        uint256 amount,\\r\\n        uint256 interestRateMode,\\r\\n        address onBehalfOf\\r\\n    ) external returns (uint256);\\r\\n\\r\\n    /**\\r\\n     * @notice Repay with transfer approval of asset to be repaid done via permit function\\r\\n     * see: https://eips.ethereum.org/EIPS/eip-2612 and https://eips.ethereum.org/EIPS/eip-713\\r\\n     * @param asset The address of the borrowed underlying asset previously borrowed\\r\\n     * @param amount The amount to repay\\r\\n     * - Send the value type(uint256).max in order to repay the whole debt for `asset` on the specific `debtMode`\\r\\n     * @param interestRateMode The interest rate mode at of the debt the user wants to repay: 1 for Stable, 2 for Variable\\r\\n     * @param onBehalfOf Address of the user who will get his debt reduced/removed. Should be the address of the\\r\\n     * user calling the function if he wants to reduce/remove his own debt, or the address of any other\\r\\n     * other borrower whose debt should be removed\\r\\n     * @param deadline The deadline timestamp that the permit is valid\\r\\n     * @param permitV The V parameter of ERC712 permit sig\\r\\n     * @param permitR The R parameter of ERC712 permit sig\\r\\n     * @param permitS The S parameter of ERC712 permit sig\\r\\n     * @return The final amount repaid\\r\\n     **/\\r\\n    function repayWithPermit(\\r\\n        address asset,\\r\\n        uint256 amount,\\r\\n        uint256 interestRateMode,\\r\\n        address onBehalfOf,\\r\\n        uint256 deadline,\\r\\n        uint8 permitV,\\r\\n        bytes32 permitR,\\r\\n        bytes32 permitS\\r\\n    ) external returns (uint256);\\r\\n\\r\\n    /**\\r\\n     * @notice Repays a borrowed `amount` on a specific reserve using the reserve aTokens, burning the\\r\\n     * equivalent debt tokens\\r\\n     * - E.g. User repays 100 USDC using 100 aUSDC, burning 100 variable/stable debt tokens\\r\\n     * @dev  Passing uint256.max as amount will clean up any residual aToken dust balance, if the user aToken\\r\\n     * balance is not enough to cover the whole debt\\r\\n     * @param asset The address of the borrowed underlying asset previously borrowed\\r\\n     * @param amount The amount to repay\\r\\n     * - Send the value type(uint256).max in order to repay the whole debt for `asset` on the specific `debtMode`\\r\\n     * @param interestRateMode The interest rate mode at of the debt the user wants to repay: 1 for Stable, 2 for Variable\\r\\n     * @return The final amount repaid\\r\\n     **/\\r\\n    function repayWithATokens(\\r\\n        address asset,\\r\\n        uint256 amount,\\r\\n        uint256 interestRateMode\\r\\n    ) external returns (uint256);\\r\\n\\r\\n    /**\\r\\n     * @notice Allows a borrower to swap his debt between stable and variable mode, or vice versa\\r\\n     * @param asset The address of the underlying asset borrowed\\r\\n     * @param interestRateMode The current interest rate mode of the position being swapped: 1 for Stable, 2 for Variable\\r\\n     **/\\r\\n    function swapBorrowRateMode(address asset, uint256 interestRateMode)\\r\\n        external;\\r\\n\\r\\n    /**\\r\\n     * @notice Rebalances the stable interest rate of a user to the current stable rate defined on the reserve.\\r\\n     * - Users can be rebalanced if the following conditions are satisfied:\\r\\n     *     1. Usage ratio is above 95%\\r\\n     *     2. the current supply APY is below REBALANCE_UP_THRESHOLD * maxVariableBorrowRate, which means that too\\r\\n     *        much has been borrowed at a stable rate and suppliers are not earning enough\\r\\n     * @param asset The address of the underlying asset borrowed\\r\\n     * @param user The address of the user to be rebalanced\\r\\n     **/\\r\\n    function rebalanceStableBorrowRate(address asset, address user) external;\\r\\n\\r\\n    /**\\r\\n     * @notice Allows suppliers to enable/disable a specific supplied asset as collateral\\r\\n     * @param asset The address of the underlying asset supplied\\r\\n     * @param useAsCollateral True if the user wants to use the supply as collateral, false otherwise\\r\\n     **/\\r\\n    function setUserUseReserveAsCollateral(address asset, bool useAsCollateral)\\r\\n        external;\\r\\n\\r\\n    /**\\r\\n     * @notice Function to liquidate a non-healthy position collateral-wise, with Health Factor below 1\\r\\n     * - The caller (liquidator) covers `debtToCover` amount of debt of the user getting liquidated, and receives\\r\\n     *   a proportionally amount of the `collateralAsset` plus a bonus to cover market risk\\r\\n     * @param collateralAsset The address of the underlying asset used as collateral, to receive as result of the liquidation\\r\\n     * @param debtAsset The address of the underlying borrowed asset to be repaid with the liquidation\\r\\n     * @param user The address of the borrower getting liquidated\\r\\n     * @param debtToCover The debt amount of borrowed `asset` the liquidator wants to cover\\r\\n     * @param receiveAToken True if the liquidators wants to receive the collateral aTokens, `false` if he wants\\r\\n     * to receive the underlying collateral asset directly\\r\\n     **/\\r\\n    function liquidationCall(\\r\\n        address collateralAsset,\\r\\n        address debtAsset,\\r\\n        address user,\\r\\n        uint256 debtToCover,\\r\\n        bool receiveAToken\\r\\n    ) external;\\r\\n\\r\\n    /**\\r\\n     * @notice Allows smartcontracts to access the liquidity of the pool within one transaction,\\r\\n     * as long as the amount taken plus a fee is returned.\\r\\n     * @dev IMPORTANT There are security concerns for developers of flashloan receiver contracts that must be kept\\r\\n     * into consideration. For further details please visit https://developers.aave.com\\r\\n     * @param receiverAddress The address of the contract receiving the funds, implementing IFlashLoanReceiver interface\\r\\n     * @param assets The addresses of the assets being flash-borrowed\\r\\n     * @param amounts The amounts of the assets being flash-borrowed\\r\\n     * @param interestRateModes Types of the debt to open if the flash loan is not returned:\\r\\n     *   0 -> Don't open any debt, just revert if funds can't be transferred from the receiver\\r\\n     *   1 -> Open debt at stable rate for the value of the amount flash-borrowed to the `onBehalfOf` address\\r\\n     *   2 -> Open debt at variable rate for the value of the amount flash-borrowed to the `onBehalfOf` address\\r\\n     * @param onBehalfOf The address  that will receive the debt in the case of using on `modes` 1 or 2\\r\\n     * @param params Variadic packed params to pass to the receiver as extra information\\r\\n     * @param referralCode The code used to register the integrator originating the operation, for potential rewards.\\r\\n     *   0 if the action is executed directly by the user, without any middle-man\\r\\n     **/\\r\\n    function flashLoan(\\r\\n        address receiverAddress,\\r\\n        address[] calldata assets,\\r\\n        uint256[] calldata amounts,\\r\\n        uint256[] calldata interestRateModes,\\r\\n        address onBehalfOf,\\r\\n        bytes calldata params,\\r\\n        uint16 referralCode\\r\\n    ) external;\\r\\n\\r\\n    /**\\r\\n     * @notice Allows smartcontracts to access the liquidity of the pool within one transaction,\\r\\n     * as long as the amount taken plus a fee is returned.\\r\\n     * @dev IMPORTANT There are security concerns for developers of flashloan receiver contracts that must be kept\\r\\n     * into consideration. For further details please visit https://developers.aave.com\\r\\n     * @param receiverAddress The address of the contract receiving the funds, implementing IFlashLoanSimpleReceiver interface\\r\\n     * @param asset The address of the asset being flash-borrowed\\r\\n     * @param amount The amount of the asset being flash-borrowed\\r\\n     * @param params Variadic packed params to pass to the receiver as extra information\\r\\n     * @param referralCode The code used to register the integrator originating the operation, for potential rewards.\\r\\n     *   0 if the action is executed directly by the user, without any middle-man\\r\\n     **/\\r\\n    function flashLoanSimple(\\r\\n        address receiverAddress,\\r\\n        address asset,\\r\\n        uint256 amount,\\r\\n        bytes calldata params,\\r\\n        uint16 referralCode\\r\\n    ) external;\\r\\n\\r\\n    /**\\r\\n     * @notice Returns the user account data across all the reserves\\r\\n     * @param user The address of the user\\r\\n     * @return totalCollateralBase The total collateral of the user in the base currency used by the price feed\\r\\n     * @return totalDebtBase The total debt of the user in the base currency used by the price feed\\r\\n     * @return availableBorrowsBase The borrowing power left of the user in the base currency used by the price feed\\r\\n     * @return currentLiquidationThreshold The liquidation threshold of the user\\r\\n     * @return ltv The loan to value of The user\\r\\n     * @return healthFactor The current health factor of the user\\r\\n     **/\\r\\n    function getUserAccountData(address user)\\r\\n        external\\r\\n        view\\r\\n        returns (\\r\\n            uint256 totalCollateralBase,\\r\\n            uint256 totalDebtBase,\\r\\n            uint256 availableBorrowsBase,\\r\\n            uint256 currentLiquidationThreshold,\\r\\n            uint256 ltv,\\r\\n            uint256 healthFactor\\r\\n        );\\r\\n\\r\\n    /**\\r\\n     * @notice Initializes a reserve, activating it, assigning an aToken and debt tokens and an\\r\\n     * interest rate strategy\\r\\n     * @dev Only callable by the PoolConfigurator contract\\r\\n     * @param asset The address of the underlying asset of the reserve\\r\\n     * @param aTokenAddress The address of the aToken that will be assigned to the reserve\\r\\n     * @param stableDebtAddress The address of the StableDebtToken that will be assigned to the reserve\\r\\n     * @param variableDebtAddress The address of the VariableDebtToken that will be assigned to the reserve\\r\\n     * @param interestRateStrategyAddress The address of the interest rate strategy contract\\r\\n     **/\\r\\n    function initReserve(\\r\\n        address asset,\\r\\n        address aTokenAddress,\\r\\n        address stableDebtAddress,\\r\\n        address variableDebtAddress,\\r\\n        address interestRateStrategyAddress\\r\\n    ) external;\\r\\n\\r\\n    /**\\r\\n     * @notice Drop a reserve\\r\\n     * @dev Only callable by the PoolConfigurator contract\\r\\n     * @param asset The address of the underlying asset of the reserve\\r\\n     **/\\r\\n    function dropReserve(address asset) external;\\r\\n\\r\\n    /**\\r\\n     * @notice Updates the address of the interest rate strategy contract\\r\\n     * @dev Only callable by the PoolConfigurator contract\\r\\n     * @param asset The address of the underlying asset of the reserve\\r\\n     * @param rateStrategyAddress The address of the interest rate strategy contract\\r\\n     **/\\r\\n    function setReserveInterestRateStrategyAddress(\\r\\n        address asset,\\r\\n        address rateStrategyAddress\\r\\n    ) external;\\r\\n\\r\\n    /**\\r\\n     * @notice Sets the configuration bitmap of the reserve as a whole\\r\\n     * @dev Only callable by the PoolConfigurator contract\\r\\n     * @param asset The address of the underlying asset of the reserve\\r\\n     * @param configuration The new configuration bitmap\\r\\n     **/\\r\\n    function setConfiguration(\\r\\n        address asset,\\r\\n        DataTypes.ReserveConfigurationMap calldata configuration\\r\\n    ) external;\\r\\n\\r\\n    /**\\r\\n     * @notice Returns the configuration of the reserve\\r\\n     * @param asset The address of the underlying asset of the reserve\\r\\n     * @return The configuration of the reserve\\r\\n     **/\\r\\n    function getConfiguration(address asset)\\r\\n        external\\r\\n        view\\r\\n        returns (DataTypes.ReserveConfigurationMap memory);\\r\\n\\r\\n    /**\\r\\n     * @notice Returns the configuration of the user across all the reserves\\r\\n     * @param user The user address\\r\\n     * @return The configuration of the user\\r\\n     **/\\r\\n    function getUserConfiguration(address user)\\r\\n        external\\r\\n        view\\r\\n        returns (DataTypes.UserConfigurationMap memory);\\r\\n\\r\\n    /**\\r\\n     * @notice Returns the normalized income normalized income of the reserve\\r\\n     * @param asset The address of the underlying asset of the reserve\\r\\n     * @return The reserve's normalized income\\r\\n     */\\r\\n    function getReserveNormalizedIncome(address asset)\\r\\n        external\\r\\n        view\\r\\n        returns (uint256);\\r\\n\\r\\n    /**\\r\\n     * @notice Returns the normalized variable debt per unit of asset\\r\\n     * @param asset The address of the underlying asset of the reserve\\r\\n     * @return The reserve normalized variable debt\\r\\n     */\\r\\n    function getReserveNormalizedVariableDebt(address asset)\\r\\n        external\\r\\n        view\\r\\n        returns (uint256);\\r\\n\\r\\n    /**\\r\\n     * @notice Returns the state and configuration of the reserve\\r\\n     * @param asset The address of the underlying asset of the reserve\\r\\n     * @return The state and configuration data of the reserve\\r\\n     **/\\r\\n    function getReserveData(address asset)\\r\\n        external\\r\\n        view\\r\\n        returns (DataTypes.ReserveData memory);\\r\\n\\r\\n    /**\\r\\n     * @notice Validates and finalizes an aToken transfer\\r\\n     * @dev Only callable by the overlying aToken of the `asset`\\r\\n     * @param asset The address of the underlying asset of the aToken\\r\\n     * @param from The user from which the aTokens are transferred\\r\\n     * @param to The user receiving the aTokens\\r\\n     * @param amount The amount being transferred/withdrawn\\r\\n     * @param balanceFromBefore The aToken balance of the `from` user before the transfer\\r\\n     * @param balanceToBefore The aToken balance of the `to` user before the transfer\\r\\n     */\\r\\n    function finalizeTransfer(\\r\\n        address asset,\\r\\n        address from,\\r\\n        address to,\\r\\n        uint256 amount,\\r\\n        uint256 balanceFromBefore,\\r\\n        uint256 balanceToBefore\\r\\n    ) external;\\r\\n\\r\\n    /**\\r\\n     * @notice Returns the list of the underlying assets of all the initialized reserves\\r\\n     * @dev It does not include dropped reserves\\r\\n     * @return The addresses of the underlying assets of the initialized reserves\\r\\n     **/\\r\\n    function getReservesList() external view returns (address[] memory);\\r\\n\\r\\n    /**\\r\\n     * @notice Returns the address of the underlying asset of a reserve by the reserve id as stored in the DataTypes.ReserveData struct\\r\\n     * @param id The id of the reserve as stored in the DataTypes.ReserveData struct\\r\\n     * @return The address of the reserve associated with id\\r\\n     **/\\r\\n    function getReserveAddressById(uint16 id) external view returns (address);\\r\\n\\r\\n    /**\\r\\n     * @notice Returns the PoolAddressesProvider connected to this contract\\r\\n     * @return The address of the PoolAddressesProvider\\r\\n     **/\\r\\n    function ADDRESSES_PROVIDER()\\r\\n        external\\r\\n        view\\r\\n        returns (IPoolAddressesProvider);\\r\\n\\r\\n    /**\\r\\n     * @notice Updates the protocol fee on the bridging\\r\\n     * @param bridgeProtocolFee The part of the premium sent to the protocol treasury\\r\\n     */\\r\\n    function updateBridgeProtocolFee(uint256 bridgeProtocolFee) external;\\r\\n\\r\\n    /**\\r\\n     * @notice Updates flash loan premiums. Flash loan premium consists of two parts:\\r\\n     * - A part is sent to aToken holders as extra, one time accumulated interest\\r\\n     * - A part is collected by the protocol treasury\\r\\n     * @dev The total premium is calculated on the total borrowed amount\\r\\n     * @dev The premium to protocol is calculated on the total premium, being a percentage of `flashLoanPremiumTotal`\\r\\n     * @dev Only callable by the PoolConfigurator contract\\r\\n     * @param flashLoanPremiumTotal The total premium, expressed in bps\\r\\n     * @param flashLoanPremiumToProtocol The part of the premium sent to the protocol treasury, expressed in bps\\r\\n     */\\r\\n    function updateFlashloanPremiums(\\r\\n        uint128 flashLoanPremiumTotal,\\r\\n        uint128 flashLoanPremiumToProtocol\\r\\n    ) external;\\r\\n\\r\\n    /**\\r\\n     * @notice Configures a new category for the eMode.\\r\\n     * @dev In eMode, the protocol allows very high borrowing power to borrow assets of the same category.\\r\\n     * The category 0 is reserved as it's the default for volatile assets\\r\\n     * @param id The id of the category\\r\\n     * @param config The configuration of the category\\r\\n     */\\r\\n    function configureEModeCategory(\\r\\n        uint8 id,\\r\\n        DataTypes.EModeCategory memory config\\r\\n    ) external;\\r\\n\\r\\n    /**\\r\\n     * @notice Returns the data of an eMode category\\r\\n     * @param id The id of the category\\r\\n     * @return The configuration data of the category\\r\\n     */\\r\\n    function getEModeCategoryData(uint8 id)\\r\\n        external\\r\\n        view\\r\\n        returns (DataTypes.EModeCategory memory);\\r\\n\\r\\n    /**\\r\\n     * @notice Allows a user to use the protocol in eMode\\r\\n     * @param categoryId The id of the category\\r\\n     */\\r\\n    function setUserEMode(uint8 categoryId) external;\\r\\n\\r\\n    /**\\r\\n     * @notice Returns the eMode the user is using\\r\\n     * @param user The address of the user\\r\\n     * @return The eMode id\\r\\n     */\\r\\n    function getUserEMode(address user) external view returns (uint256);\\r\\n\\r\\n    /**\\r\\n     * @notice Resets the isolation mode total debt of the given asset to zero\\r\\n     * @dev It requires the given asset has zero debt ceiling\\r\\n     * @param asset The address of the underlying asset to reset the isolationModeTotalDebt\\r\\n     */\\r\\n    function resetIsolationModeTotalDebt(address asset) external;\\r\\n\\r\\n    /**\\r\\n     * @notice Returns the percentage of available liquidity that can be borrowed at once at stable rate\\r\\n     * @return The percentage of available liquidity to borrow, expressed in bps\\r\\n     */\\r\\n    function MAX_STABLE_RATE_BORROW_SIZE_PERCENT()\\r\\n        external\\r\\n        view\\r\\n        returns (uint256);\\r\\n\\r\\n    /**\\r\\n     * @notice Returns the total fee on flash loans\\r\\n     * @return The total fee on flashloans\\r\\n     */\\r\\n    function FLASHLOAN_PREMIUM_TOTAL() external view returns (uint128);\\r\\n\\r\\n    /**\\r\\n     * @notice Returns the part of the bridge fees sent to protocol\\r\\n     * @return The bridge fee sent to the protocol treasury\\r\\n     */\\r\\n    function BRIDGE_PROTOCOL_FEE() external view returns (uint256);\\r\\n\\r\\n    /**\\r\\n     * @notice Returns the part of the flashloan fees sent to protocol\\r\\n     * @return The flashloan fee sent to the protocol treasury\\r\\n     */\\r\\n    function FLASHLOAN_PREMIUM_TO_PROTOCOL() external view returns (uint128);\\r\\n\\r\\n    /**\\r\\n     * @notice Returns the maximum number of reserves supported to be listed in this Pool\\r\\n     * @return The maximum number of reserves supported\\r\\n     */\\r\\n    function MAX_NUMBER_RESERVES() external view returns (uint16);\\r\\n\\r\\n    /**\\r\\n     * @notice Mints the assets accrued through the reserve factor to the treasury in the form of aTokens\\r\\n     * @param assets The list of reserves for which the minting needs to be executed\\r\\n     **/\\r\\n    function mintToTreasury(address[] calldata assets) external;\\r\\n\\r\\n    /**\\r\\n     * @notice Rescue and transfer tokens locked in this contract\\r\\n     * @param token The address of the token\\r\\n     * @param to The address of the recipient\\r\\n     * @param amount The amount of token to transfer\\r\\n     */\\r\\n    function rescueTokens(\\r\\n        address token,\\r\\n        address to,\\r\\n        uint256 amount\\r\\n    ) external;\\r\\n\\r\\n    /**\\r\\n     * @notice Supplies an `amount` of underlying asset into the reserve, receiving in return overlying aTokens.\\r\\n     * - E.g. User supplies 100 USDC and gets in return 100 aUSDC\\r\\n     * @dev Deprecated: Use the `supply` function instead\\r\\n     * @param asset The address of the underlying asset to supply\\r\\n     * @param amount The amount to be supplied\\r\\n     * @param onBehalfOf The address that will receive the aTokens, same as msg.sender if the user\\r\\n     *   wants to receive them on his own wallet, or a different address if the beneficiary of aTokens\\r\\n     *   is a different wallet\\r\\n     * @param referralCode Code used to register the integrator originating the operation, for potential rewards.\\r\\n     *   0 if the action is executed directly by the user, without any middle-man\\r\\n     **/\\r\\n    function deposit(\\r\\n        address asset,\\r\\n        uint256 amount,\\r\\n        address onBehalfOf,\\r\\n        uint16 referralCode\\r\\n    ) external;\\r\\n}\\r\\n\",\"keccak256\":\"0x796aacd49a10e3aae85dba9d9145b218a7afd5c070cd0a9bd932ccc64207f846\",\"license\":\"AGPL-3.0\"},\"contracts/interface/IPoolAddressesProvider.sol\":{\"content\":\"// SPDX-License-Identifier: AGPL-3.0\\r\\npragma solidity 0.8.10;\\r\\n\\r\\n/**\\r\\n * @title IPoolAddressesProvider\\r\\n * @author Aave\\r\\n * @notice Defines the basic interface for a Pool Addresses Provider.\\r\\n **/\\r\\ninterface IPoolAddressesProvider {\\r\\n    /**\\r\\n     * @dev Emitted when the market identifier is updated.\\r\\n     * @param oldMarketId The old id of the market\\r\\n     * @param newMarketId The new id of the market\\r\\n     */\\r\\n    event MarketIdSet(string indexed oldMarketId, string indexed newMarketId);\\r\\n\\r\\n    /**\\r\\n     * @dev Emitted when the pool is updated.\\r\\n     * @param oldAddress The old address of the Pool\\r\\n     * @param newAddress The new address of the Pool\\r\\n     */\\r\\n    event PoolUpdated(address indexed oldAddress, address indexed newAddress);\\r\\n\\r\\n    /**\\r\\n     * @dev Emitted when the pool configurator is updated.\\r\\n     * @param oldAddress The old address of the PoolConfigurator\\r\\n     * @param newAddress The new address of the PoolConfigurator\\r\\n     */\\r\\n    event PoolConfiguratorUpdated(\\r\\n        address indexed oldAddress,\\r\\n        address indexed newAddress\\r\\n    );\\r\\n\\r\\n    /**\\r\\n     * @dev Emitted when the price oracle is updated.\\r\\n     * @param oldAddress The old address of the PriceOracle\\r\\n     * @param newAddress The new address of the PriceOracle\\r\\n     */\\r\\n    event PriceOracleUpdated(\\r\\n        address indexed oldAddress,\\r\\n        address indexed newAddress\\r\\n    );\\r\\n\\r\\n    /**\\r\\n     * @dev Emitted when the ACL manager is updated.\\r\\n     * @param oldAddress The old address of the ACLManager\\r\\n     * @param newAddress The new address of the ACLManager\\r\\n     */\\r\\n    event ACLManagerUpdated(\\r\\n        address indexed oldAddress,\\r\\n        address indexed newAddress\\r\\n    );\\r\\n\\r\\n    /**\\r\\n     * @dev Emitted when the ACL admin is updated.\\r\\n     * @param oldAddress The old address of the ACLAdmin\\r\\n     * @param newAddress The new address of the ACLAdmin\\r\\n     */\\r\\n    event ACLAdminUpdated(\\r\\n        address indexed oldAddress,\\r\\n        address indexed newAddress\\r\\n    );\\r\\n\\r\\n    /**\\r\\n     * @dev Emitted when the price oracle sentinel is updated.\\r\\n     * @param oldAddress The old address of the PriceOracleSentinel\\r\\n     * @param newAddress The new address of the PriceOracleSentinel\\r\\n     */\\r\\n    event PriceOracleSentinelUpdated(\\r\\n        address indexed oldAddress,\\r\\n        address indexed newAddress\\r\\n    );\\r\\n\\r\\n    /**\\r\\n     * @dev Emitted when the pool data provider is updated.\\r\\n     * @param oldAddress The old address of the PoolDataProvider\\r\\n     * @param newAddress The new address of the PoolDataProvider\\r\\n     */\\r\\n    event PoolDataProviderUpdated(\\r\\n        address indexed oldAddress,\\r\\n        address indexed newAddress\\r\\n    );\\r\\n\\r\\n    /**\\r\\n     * @dev Emitted when a new proxy is created.\\r\\n     * @param id The identifier of the proxy\\r\\n     * @param proxyAddress The address of the created proxy contract\\r\\n     * @param implementationAddress The address of the implementation contract\\r\\n     */\\r\\n    event ProxyCreated(\\r\\n        bytes32 indexed id,\\r\\n        address indexed proxyAddress,\\r\\n        address indexed implementationAddress\\r\\n    );\\r\\n\\r\\n    /**\\r\\n     * @dev Emitted when a new non-proxied contract address is registered.\\r\\n     * @param id The identifier of the contract\\r\\n     * @param oldAddress The address of the old contract\\r\\n     * @param newAddress The address of the new contract\\r\\n     */\\r\\n    event AddressSet(\\r\\n        bytes32 indexed id,\\r\\n        address indexed oldAddress,\\r\\n        address indexed newAddress\\r\\n    );\\r\\n\\r\\n    /**\\r\\n     * @dev Emitted when the implementation of the proxy registered with id is updated\\r\\n     * @param id The identifier of the contract\\r\\n     * @param proxyAddress The address of the proxy contract\\r\\n     * @param oldImplementationAddress The address of the old implementation contract\\r\\n     * @param newImplementationAddress The address of the new implementation contract\\r\\n     */\\r\\n    event AddressSetAsProxy(\\r\\n        bytes32 indexed id,\\r\\n        address indexed proxyAddress,\\r\\n        address oldImplementationAddress,\\r\\n        address indexed newImplementationAddress\\r\\n    );\\r\\n\\r\\n    /**\\r\\n     * @notice Returns the id of the Aave market to which this contract points to.\\r\\n     * @return The market id\\r\\n     **/\\r\\n    function getMarketId() external view returns (string memory);\\r\\n\\r\\n    /**\\r\\n     * @notice Associates an id with a specific PoolAddressesProvider.\\r\\n     * @dev This can be used to create an onchain registry of PoolAddressesProviders to\\r\\n     * identify and validate multiple Aave markets.\\r\\n     * @param newMarketId The market id\\r\\n     */\\r\\n    function setMarketId(string calldata newMarketId) external;\\r\\n\\r\\n    /**\\r\\n     * @notice Returns an address by its identifier.\\r\\n     * @dev The returned address might be an EOA or a contract, potentially proxied\\r\\n     * @dev It returns ZERO if there is no registered address with the given id\\r\\n     * @param id The id\\r\\n     * @return The address of the registered for the specified id\\r\\n     */\\r\\n    function getAddress(bytes32 id) external view returns (address);\\r\\n\\r\\n    /**\\r\\n     * @notice General function to update the implementation of a proxy registered with\\r\\n     * certain `id`. If there is no proxy registered, it will instantiate one and\\r\\n     * set as implementation the `newImplementationAddress`.\\r\\n     * @dev IMPORTANT Use this function carefully, only for ids that don't have an explicit\\r\\n     * setter function, in order to avoid unexpected consequences\\r\\n     * @param id The id\\r\\n     * @param newImplementationAddress The address of the new implementation\\r\\n     */\\r\\n    function setAddressAsProxy(bytes32 id, address newImplementationAddress)\\r\\n        external;\\r\\n\\r\\n    /**\\r\\n     * @notice Sets an address for an id replacing the address saved in the addresses map.\\r\\n     * @dev IMPORTANT Use this function carefully, as it will do a hard replacement\\r\\n     * @param id The id\\r\\n     * @param newAddress The address to set\\r\\n     */\\r\\n    function setAddress(bytes32 id, address newAddress) external;\\r\\n\\r\\n    /**\\r\\n     * @notice Returns the address of the Pool proxy.\\r\\n     * @return The Pool proxy address\\r\\n     **/\\r\\n    function getPool() external view returns (address);\\r\\n\\r\\n    /**\\r\\n     * @notice Updates the implementation of the Pool, or creates a proxy\\r\\n     * setting the new `pool` implementation when the function is called for the first time.\\r\\n     * @param newPoolImpl The new Pool implementation\\r\\n     **/\\r\\n    function setPoolImpl(address newPoolImpl) external;\\r\\n\\r\\n    /**\\r\\n     * @notice Returns the address of the PoolConfigurator proxy.\\r\\n     * @return The PoolConfigurator proxy address\\r\\n     **/\\r\\n    function getPoolConfigurator() external view returns (address);\\r\\n\\r\\n    /**\\r\\n     * @notice Updates the implementation of the PoolConfigurator, or creates a proxy\\r\\n     * setting the new `PoolConfigurator` implementation when the function is called for the first time.\\r\\n     * @param newPoolConfiguratorImpl The new PoolConfigurator implementation\\r\\n     **/\\r\\n    function setPoolConfiguratorImpl(address newPoolConfiguratorImpl) external;\\r\\n\\r\\n    /**\\r\\n     * @notice Returns the address of the price oracle.\\r\\n     * @return The address of the PriceOracle\\r\\n     */\\r\\n    function getPriceOracle() external view returns (address);\\r\\n\\r\\n    /**\\r\\n     * @notice Updates the address of the price oracle.\\r\\n     * @param newPriceOracle The address of the new PriceOracle\\r\\n     */\\r\\n    function setPriceOracle(address newPriceOracle) external;\\r\\n\\r\\n    /**\\r\\n     * @notice Returns the address of the ACL manager.\\r\\n     * @return The address of the ACLManager\\r\\n     */\\r\\n    function getACLManager() external view returns (address);\\r\\n\\r\\n    /**\\r\\n     * @notice Updates the address of the ACL manager.\\r\\n     * @param newAclManager The address of the new ACLManager\\r\\n     **/\\r\\n    function setACLManager(address newAclManager) external;\\r\\n\\r\\n    /**\\r\\n     * @notice Returns the address of the ACL admin.\\r\\n     * @return The address of the ACL admin\\r\\n     */\\r\\n    function getACLAdmin() external view returns (address);\\r\\n\\r\\n    /**\\r\\n     * @notice Updates the address of the ACL admin.\\r\\n     * @param newAclAdmin The address of the new ACL admin\\r\\n     */\\r\\n    function setACLAdmin(address newAclAdmin) external;\\r\\n\\r\\n    /**\\r\\n     * @notice Returns the address of the price oracle sentinel.\\r\\n     * @return The address of the PriceOracleSentinel\\r\\n     */\\r\\n    function getPriceOracleSentinel() external view returns (address);\\r\\n\\r\\n    /**\\r\\n     * @notice Updates the address of the price oracle sentinel.\\r\\n     * @param newPriceOracleSentinel The address of the new PriceOracleSentinel\\r\\n     **/\\r\\n    function setPriceOracleSentinel(address newPriceOracleSentinel) external;\\r\\n\\r\\n    /**\\r\\n     * @notice Returns the address of the data provider.\\r\\n     * @return The address of the DataProvider\\r\\n     */\\r\\n    function getPoolDataProvider() external view returns (address);\\r\\n\\r\\n    /**\\r\\n     * @notice Updates the address of the data provider.\\r\\n     * @param newDataProvider The address of the new DataProvider\\r\\n     **/\\r\\n    function setPoolDataProvider(address newDataProvider) external;\\r\\n}\\r\\n\",\"keccak256\":\"0xb6cb01954a8fb874975bc5552ff83664fcca355f470db97434674a2f8443f27f\",\"license\":\"AGPL-3.0\"},\"contracts/interface/IWETHGateway.sol\":{\"content\":\"// SPDX-License-Identifier: AGPL-3.0\\r\\npragma solidity 0.8.10;\\r\\n\\r\\ninterface IWETHGateway {\\r\\n    function depositETH(\\r\\n        address lendingPool,\\r\\n        address onBehalfOf,\\r\\n        uint16 referralCode\\r\\n    ) external payable;\\r\\n\\r\\n    function withdrawETH(\\r\\n        address lendingPool,\\r\\n        uint256 amount,\\r\\n        address onBehalfOf\\r\\n    ) external;\\r\\n\\r\\n    function repayETH(\\r\\n        address lendingPool,\\r\\n        uint256 amount,\\r\\n        uint256 rateMode,\\r\\n        address onBehalfOf\\r\\n    ) external payable;\\r\\n\\r\\n    function borrowETH(\\r\\n        address lendingPool,\\r\\n        uint256 amount,\\r\\n        uint256 interesRateMode,\\r\\n        uint16 referralCode\\r\\n    ) external;\\r\\n}\\r\\n\",\"keccak256\":\"0xd75e4fca825b23a3f88db37f229fc02f34ce819c7d787983fed72ae0f7658af4\",\"license\":\"AGPL-3.0\"}},\"version\":1}",
+  "bytecode": "0x60806040523480156200001157600080fd5b5060405162000f4238038062000f4283398101604081905262000034916200027e565b8051825114620000b05760405162461bcd60e51b815260206004820152603b60248201527f4741415645436f72653a206e756d626572206f6620746f6b656e20616464726560448201527f73736573206d757374206d617463682070726963652066656564730000000000606482015260840160405180910390fd5b600380546001600160a01b038087166001600160a01b031992831617909255600480549286169290911691909117905560005b8251811015620001855781818151811062000102576200010262000313565b60200260200101516002600085848151811062000123576200012362000313565b60200260200101516001600160a01b03166001600160a01b0316815260200190815260200160002060006101000a8154816001600160a01b0302191690836001600160a01b0316021790555080806200017c9062000329565b915050620000e3565b505050505062000353565b6001600160a01b0381168114620001a657600080fd5b50565b634e487b7160e01b600052604160045260246000fd5b8051620001cc8162000190565b919050565b600082601f830112620001e357600080fd5b815160206001600160401b0380831115620002025762000202620001a9565b8260051b604051601f19603f830116810181811084821117156200022a576200022a620001a9565b6040529384528581018301938381019250878511156200024957600080fd5b83870191505b8482101562000273576200026382620001bf565b835291830191908301906200024f565b979650505050505050565b600080600080608085870312156200029557600080fd5b8451620002a28162000190565b6020860151909450620002b58162000190565b60408601519093506001600160401b0380821115620002d357600080fd5b620002e188838901620001d1565b93506060870151915080821115620002f857600080fd5b506200030787828801620001d1565b91505092959194509250565b634e487b7160e01b600052603260045260246000fd5b60006000198214156200034c57634e487b7160e01b600052601160045260246000fd5b5060010190565b610bdf80620003636000396000f3fe6080604052600436106100e85760003560e01c80636caa92181161008a578063bc157ac111610059578063bc157ac11461028f578063e63697c8146102af578063f14210a6146102cf578063f3fef3a31461017957600080fd5b80636caa9218146101c05780638078f22c146101d457806393f1a40b1461020a578063ae5a98ba1461026f57600080fd5b806347e7ef24116100c657806347e7ef24146101795780635358fbda1461019457806354d1597c146101a557806356e56942146101c057600080fd5b806308a01675146100ed57806316345f181461012a57806326923d8014610158575b600080fd5b3480156100f957600080fd5b5060045461010d906001600160a01b031681565b6040516001600160a01b0390911681526020015b60405180910390f35b34801561013657600080fd5b5061014a6101453660046107ab565b6102ea565b604051908152602001610121565b34801561016457600080fd5b50610177610173366004610921565b5050565b005b34801561018557600080fd5b506101776101733660046109da565b6101776101a2366004610a04565b50565b3480156101b157600080fd5b50610177610173366004610a1d565b3480156101cc57600080fd5b50600061014a565b3480156101e057600080fd5b5061010d6101ef3660046107ab565b6002602052600090815260409020546001600160a01b031681565b34801561021657600080fd5b50610254610225366004610a3f565b600160209081526000928352604080842090915290825290206002810154600382015460049092015490919083565b60408051938452602084019290925290820152606001610121565b34801561027b57600080fd5b5060035461010d906001600160a01b031681565b34801561029b57600080fd5b506101776102aa366004610a6b565b610361565b3480156102bb57600080fd5b506101776102ca366004610a6b565b610587565b3480156102db57600080fd5b506101776101a2366004610a04565b6000808290506000816001600160a01b031663feaf968c6040518163ffffffff1660e01b815260040160a060405180830381865afa158015610330573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906103549190610aba565b5091979650505050505050565b600083815260016020908152604080832033845282528083206001600160a01b0386811685526002909352908320549092429290916103a091166102ea565b6001600160a01b0386166000908152602085905260409020549091506103fa576000600484018190556001600160a01b038616815260208481526040808320879055600186019091529020819055600383018290556104d2565b60038301546104099083610b20565b6001600160a01b03861660009081526001850160205260409020546002906104319084610b37565b6001600160a01b0388166000908152602087905260409020546104549190610b4f565b61045e9190610b6e565b6104689190610b4f565b83600401600082825461047b9190610b37565b90915550506001600160a01b038516600090815260208490526040812080548692906104a8908490610b37565b9091555050600383018290556001600160a01b038516600090815260018401602052604090208190555b6004805460405163e8eda9df60e01b81526001600160a01b0388811693820193909352602481018790523060448201526000606482015291169063e8eda9df90608401600060405180830381600087803b15801561052f57600080fd5b505af1158015610543573d6000803e3d6000fd5b50506040518692506001600160a01b038816915033907f8752a472e571a816aea92eec8dae9baf628e840f4929fbcc2d155e6233ff68a790600090a4505050505050565b600083815260016020908152604080832033845282528083206001600160a01b0386168452918290529091205482106106235760405162461bcd60e51b815260206004820152603460248201527f4741415645436f72653a20576974686472617720616d6f756e74206d6f7265206044820152731d1a185b88195e1a5cdd1a5b99c8185b5bdd5b9d60621b606482015260840160405180910390fd5b6001600160a01b03808416600090815260026020526040812054909161064991166102ea565b60048054604051631a4ca37b60e21b81526001600160a01b03888116938201939093526024810187905233604482015292935016906369328dec906064016020604051808303816000875af11580156106a6573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906106ca9190610b90565b50600382015442906106dc9082610b20565b6001600160a01b03861660009081526001850160205260409020546002906107049085610b37565b6001600160a01b0388166000908152602087905260409020546107279190610b4f565b6107319190610b6e565b61073b9190610b4f565b83600401600082825461074e9190610b37565b90915550506001600160a01b0385166000908152602084905260408120805486929061077b908490610b20565b909155505060039092019190915550505050565b80356001600160a01b03811681146107a657600080fd5b919050565b6000602082840312156107bd57600080fd5b6107c68261078f565b9392505050565b634e487b7160e01b600052604160045260246000fd5b604051601f8201601f1916810167ffffffffffffffff8111828210171561080c5761080c6107cd565b604052919050565b600067ffffffffffffffff82111561082e5761082e6107cd565b5060051b60200190565b6000601f838184011261084a57600080fd5b8235602061085f61085a83610814565b6107e3565b82815260059290921b8501810191818101908784111561087e57600080fd5b8287015b8481101561091557803567ffffffffffffffff808211156108a35760008081fd5b818a0191508a603f8301126108b85760008081fd5b858201356040828211156108ce576108ce6107cd565b6108df828b01601f191689016107e3565b92508183528c818386010111156108f65760008081fd5b8181850189850137506000908201870152845250918301918301610882565b50979650505050505050565b6000806040838503121561093457600080fd5b823567ffffffffffffffff8082111561094c57600080fd5b818501915085601f83011261096057600080fd5b8135602061097061085a83610814565b82815260059290921b8401810191818101908984111561098f57600080fd5b948201945b838610156109ad57853582529482019490820190610994565b965050860135925050808211156109c357600080fd5b506109d085828601610838565b9150509250929050565b600080604083850312156109ed57600080fd5b6109f68361078f565b946020939093013593505050565b600060208284031215610a1657600080fd5b5035919050565b60008060408385031215610a3057600080fd5b50508035926020909101359150565b60008060408385031215610a5257600080fd5b82359150610a626020840161078f565b90509250929050565b600080600060608486031215610a8057600080fd5b83359250610a906020850161078f565b9150604084013590509250925092565b805169ffffffffffffffffffff811681146107a657600080fd5b600080600080600060a08688031215610ad257600080fd5b610adb86610aa0565b9450602086015193506040860151925060608601519150610afe60808701610aa0565b90509295509295909350565b634e487b7160e01b600052601160045260246000fd5b600082821015610b3257610b32610b0a565b500390565b60008219821115610b4a57610b4a610b0a565b500190565b6000816000190483118215151615610b6957610b69610b0a565b500290565b600082610b8b57634e487b7160e01b600052601260045260246000fd5b500490565b600060208284031215610ba257600080fd5b505191905056fea2646970667358221220edb5114859b3d7d34c838c2359f8ecfbf345ace470de3f8578874c0ad7112ec764736f6c634300080a0033",
+  "deployedBytecode": "0x6080604052600436106100e85760003560e01c80636caa92181161008a578063bc157ac111610059578063bc157ac11461028f578063e63697c8146102af578063f14210a6146102cf578063f3fef3a31461017957600080fd5b80636caa9218146101c05780638078f22c146101d457806393f1a40b1461020a578063ae5a98ba1461026f57600080fd5b806347e7ef24116100c657806347e7ef24146101795780635358fbda1461019457806354d1597c146101a557806356e56942146101c057600080fd5b806308a01675146100ed57806316345f181461012a57806326923d8014610158575b600080fd5b3480156100f957600080fd5b5060045461010d906001600160a01b031681565b6040516001600160a01b0390911681526020015b60405180910390f35b34801561013657600080fd5b5061014a6101453660046107ab565b6102ea565b604051908152602001610121565b34801561016457600080fd5b50610177610173366004610921565b5050565b005b34801561018557600080fd5b506101776101733660046109da565b6101776101a2366004610a04565b50565b3480156101b157600080fd5b50610177610173366004610a1d565b3480156101cc57600080fd5b50600061014a565b3480156101e057600080fd5b5061010d6101ef3660046107ab565b6002602052600090815260409020546001600160a01b031681565b34801561021657600080fd5b50610254610225366004610a3f565b600160209081526000928352604080842090915290825290206002810154600382015460049092015490919083565b60408051938452602084019290925290820152606001610121565b34801561027b57600080fd5b5060035461010d906001600160a01b031681565b34801561029b57600080fd5b506101776102aa366004610a6b565b610361565b3480156102bb57600080fd5b506101776102ca366004610a6b565b610587565b3480156102db57600080fd5b506101776101a2366004610a04565b6000808290506000816001600160a01b031663feaf968c6040518163ffffffff1660e01b815260040160a060405180830381865afa158015610330573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906103549190610aba565b5091979650505050505050565b600083815260016020908152604080832033845282528083206001600160a01b0386811685526002909352908320549092429290916103a091166102ea565b6001600160a01b0386166000908152602085905260409020549091506103fa576000600484018190556001600160a01b038616815260208481526040808320879055600186019091529020819055600383018290556104d2565b60038301546104099083610b20565b6001600160a01b03861660009081526001850160205260409020546002906104319084610b37565b6001600160a01b0388166000908152602087905260409020546104549190610b4f565b61045e9190610b6e565b6104689190610b4f565b83600401600082825461047b9190610b37565b90915550506001600160a01b038516600090815260208490526040812080548692906104a8908490610b37565b9091555050600383018290556001600160a01b038516600090815260018401602052604090208190555b6004805460405163e8eda9df60e01b81526001600160a01b0388811693820193909352602481018790523060448201526000606482015291169063e8eda9df90608401600060405180830381600087803b15801561052f57600080fd5b505af1158015610543573d6000803e3d6000fd5b50506040518692506001600160a01b038816915033907f8752a472e571a816aea92eec8dae9baf628e840f4929fbcc2d155e6233ff68a790600090a4505050505050565b600083815260016020908152604080832033845282528083206001600160a01b0386168452918290529091205482106106235760405162461bcd60e51b815260206004820152603460248201527f4741415645436f72653a20576974686472617720616d6f756e74206d6f7265206044820152731d1a185b88195e1a5cdd1a5b99c8185b5bdd5b9d60621b606482015260840160405180910390fd5b6001600160a01b03808416600090815260026020526040812054909161064991166102ea565b60048054604051631a4ca37b60e21b81526001600160a01b03888116938201939093526024810187905233604482015292935016906369328dec906064016020604051808303816000875af11580156106a6573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906106ca9190610b90565b50600382015442906106dc9082610b20565b6001600160a01b03861660009081526001850160205260409020546002906107049085610b37565b6001600160a01b0388166000908152602087905260409020546107279190610b4f565b6107319190610b6e565b61073b9190610b4f565b83600401600082825461074e9190610b37565b90915550506001600160a01b0385166000908152602084905260408120805486929061077b908490610b20565b909155505060039092019190915550505050565b80356001600160a01b03811681146107a657600080fd5b919050565b6000602082840312156107bd57600080fd5b6107c68261078f565b9392505050565b634e487b7160e01b600052604160045260246000fd5b604051601f8201601f1916810167ffffffffffffffff8111828210171561080c5761080c6107cd565b604052919050565b600067ffffffffffffffff82111561082e5761082e6107cd565b5060051b60200190565b6000601f838184011261084a57600080fd5b8235602061085f61085a83610814565b6107e3565b82815260059290921b8501810191818101908784111561087e57600080fd5b8287015b8481101561091557803567ffffffffffffffff808211156108a35760008081fd5b818a0191508a603f8301126108b85760008081fd5b858201356040828211156108ce576108ce6107cd565b6108df828b01601f191689016107e3565b92508183528c818386010111156108f65760008081fd5b8181850189850137506000908201870152845250918301918301610882565b50979650505050505050565b6000806040838503121561093457600080fd5b823567ffffffffffffffff8082111561094c57600080fd5b818501915085601f83011261096057600080fd5b8135602061097061085a83610814565b82815260059290921b8401810191818101908984111561098f57600080fd5b948201945b838610156109ad57853582529482019490820190610994565b965050860135925050808211156109c357600080fd5b506109d085828601610838565b9150509250929050565b600080604083850312156109ed57600080fd5b6109f68361078f565b946020939093013593505050565b600060208284031215610a1657600080fd5b5035919050565b60008060408385031215610a3057600080fd5b50508035926020909101359150565b60008060408385031215610a5257600080fd5b82359150610a626020840161078f565b90509250929050565b600080600060608486031215610a8057600080fd5b83359250610a906020850161078f565b9150604084013590509250925092565b805169ffffffffffffffffffff811681146107a657600080fd5b600080600080600060a08688031215610ad257600080fd5b610adb86610aa0565b9450602086015193506040860151925060608601519150610afe60808701610aa0565b90509295509295909350565b634e487b7160e01b600052601160045260246000fd5b600082821015610b3257610b32610b0a565b500390565b60008219821115610b4a57610b4a610b0a565b500190565b6000816000190483118215151615610b6957610b69610b0a565b500290565b600082610b8b57634e487b7160e01b600052601260045260246000fd5b500490565b600060208284031215610ba257600080fd5b505191905056fea2646970667358221220edb5114859b3d7d34c838c2359f8ecfbf345ace470de3f8578874c0ad7112ec764736f6c634300080a0033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {
+      "claimBadge()": {
+        "returns": {
+          "_0": "The address of the registered for the specified id"
+        }
+      },
+      "claimBadge(uint256,uint256)": {
+        "params": {
+          "_campaignId": "The id of the campaign to claim from",
+          "_milestone": "The milestone of the reward"
+        }
+      },
+      "deposit(address,uint256)": {
+        "params": {
+          "_amount": "The amount of tokens to deposit",
+          "_tokenAddress": "The address of the token to deposit"
+        }
+      },
+      "deposit(uint256,address,uint256)": {
+        "params": {
+          "_amount": "The amount of tokens to deposit",
+          "_tokenAddress": "The address of the token to deposit"
+        }
+      },
+      "depositETH(uint256)": {
+        "params": {
+          "_amount": "The amount of tokens to deposit"
+        }
+      },
+      "getLatestPrice(address)": {
+        "returns": {
+          "_0": "The value of the token in USD"
+        }
+      },
+      "withdraw(address,uint256)": {
+        "params": {
+          "_amount": "The amount of tokens to withdraw",
+          "_tokenAddress": "The address of the token to withdraw"
+        }
+      },
+      "withdraw(uint256,address,uint256)": {
+        "params": {
+          "_amount": "The amount of tokens to withdraw",
+          "_tokenAddress": "The address of the token to withdraw"
+        }
+      },
+      "withdrawETH(uint256)": {
+        "params": {
+          "_amount": "The amount of tokens to withdraw"
+        }
+      }
+    },
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {
+      "claimBadge()": {
+        "notice": "Claim badges from GAAVE"
+      },
+      "claimBadge(uint256,uint256)": {
+        "notice": "Claim badges from GAAVE"
+      },
+      "deposit(address,uint256)": {
+        "notice": "Deposit Crypto into GAAVE"
+      },
+      "deposit(uint256,address,uint256)": {
+        "notice": "Deposit Crypto into GAAVE"
+      },
+      "depositETH(uint256)": {
+        "notice": "Deposit ETH into GAAVE"
+      },
+      "getLatestPrice(address)": {
+        "notice": "Calculate the value of deposit based on the token's address"
+      },
+      "withdraw(address,uint256)": {
+        "notice": "Withdraw Crypto from GAAVE"
+      },
+      "withdraw(uint256,address,uint256)": {
+        "notice": "Withdraw Crypto from GAAVE"
+      },
+      "withdrawETH(uint256)": {
+        "notice": "Withdraw ETH from GAAVE"
+      }
+    },
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 137,
+        "contract": "contracts/GAAVECore.sol:GAAVECore",
+        "label": "campaigns",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_mapping(t_uint256,t_struct(Campaign)901_storage)"
+      },
+      {
+        "astId": 144,
+        "contract": "contracts/GAAVECore.sol:GAAVECore",
+        "label": "userInfo",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_mapping(t_uint256,t_mapping(t_address,t_struct(User)916_storage))"
+      },
+      {
+        "astId": 148,
+        "contract": "contracts/GAAVECore.sol:GAAVECore",
+        "label": "tokenToPriceFeed",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_mapping(t_address,t_address)"
+      },
+      {
+        "astId": 151,
+        "contract": "contracts/GAAVECore.sol:GAAVECore",
+        "label": "WETH_GATEWAY",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_contract(IWETHGateway)1901"
+      },
+      {
+        "astId": 154,
+        "contract": "contracts/GAAVECore.sol:GAAVECore",
+        "label": "AAVE_POOL",
+        "offset": 0,
+        "slot": "4",
+        "type": "t_contract(IPool)1649"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_array(t_uint256)dyn_storage": {
+        "base": "t_uint256",
+        "encoding": "dynamic_array",
+        "label": "uint256[]",
+        "numberOfBytes": "32"
+      },
+      "t_contract(IPool)1649": {
+        "encoding": "inplace",
+        "label": "contract IPool",
+        "numberOfBytes": "20"
+      },
+      "t_contract(IWETHGateway)1901": {
+        "encoding": "inplace",
+        "label": "contract IWETHGateway",
+        "numberOfBytes": "20"
+      },
+      "t_mapping(t_address,t_address)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => address)",
+        "numberOfBytes": "32",
+        "value": "t_address"
+      },
+      "t_mapping(t_address,t_struct(User)916_storage)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => struct IGAAVECore.User)",
+        "numberOfBytes": "32",
+        "value": "t_struct(User)916_storage"
+      },
+      "t_mapping(t_address,t_uint256)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => uint256)",
+        "numberOfBytes": "32",
+        "value": "t_uint256"
+      },
+      "t_mapping(t_uint256,t_mapping(t_address,t_struct(User)916_storage))": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => mapping(address => struct IGAAVECore.User))",
+        "numberOfBytes": "32",
+        "value": "t_mapping(t_address,t_struct(User)916_storage)"
+      },
+      "t_mapping(t_uint256,t_struct(Campaign)901_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct IGAAVECore.Campaign)",
+        "numberOfBytes": "32",
+        "value": "t_struct(Campaign)901_storage"
+      },
+      "t_struct(Campaign)901_storage": {
+        "encoding": "inplace",
+        "label": "struct IGAAVECore.Campaign",
+        "members": [
+          {
+            "astId": 897,
+            "contract": "contracts/GAAVECore.sol:GAAVECore",
+            "label": "badgeIds",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_array(t_uint256)dyn_storage"
+          },
+          {
+            "astId": 900,
+            "contract": "contracts/GAAVECore.sol:GAAVECore",
+            "label": "thresholds",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_uint256)dyn_storage"
+          }
+        ],
+        "numberOfBytes": "64"
+      },
+      "t_struct(User)916_storage": {
+        "encoding": "inplace",
+        "label": "struct IGAAVECore.User",
+        "members": [
+          {
+            "astId": 905,
+            "contract": "contracts/GAAVECore.sol:GAAVECore",
+            "label": "tokenAmount",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_mapping(t_address,t_uint256)"
+          },
+          {
+            "astId": 909,
+            "contract": "contracts/GAAVECore.sol:GAAVECore",
+            "label": "lastPrice",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_mapping(t_address,t_uint256)"
+          },
+          {
+            "astId": 911,
+            "contract": "contracts/GAAVECore.sol:GAAVECore",
+            "label": "ethAmount",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 913,
+            "contract": "contracts/GAAVECore.sol:GAAVECore",
+            "label": "timeEntered",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 915,
+            "contract": "contracts/GAAVECore.sol:GAAVECore",
+            "label": "powerAccumulated",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_uint256"
+          }
+        ],
+        "numberOfBytes": "160"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}

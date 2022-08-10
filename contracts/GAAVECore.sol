@@ -7,15 +7,21 @@ import "./interface/IPool.sol";
 
 // import IERC20 from openzeppelin
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/proxy/Clones.sol";
 
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
-contract GAAVECore is IGAAVECore {
-    // Maps campaignId to Campaign
-    mapping(uint256 => Campaign) private campaigns;
+import "./GAAVEPool.sol";
 
-    // campaign id to user address to user info
-    mapping(uint256 => mapping(address => User)) public userInfo;
+contract GAAVECore is IGAAVECore {
+    // Maps campaignId to GAAVEPool
+    mapping(uint256 => GAAVEPool) private campaigns;
+
+    // Maps
+    mapping(address => uint256) public campaignOwner;
+
+    // pool address to user address to user info
+    mapping(address => mapping(address => User)) public userInfo;
 
     // Maps token address to Chainlink Price Feed
     mapping(address => address) public tokenToPriceFeed;
@@ -28,12 +34,27 @@ contract GAAVECore is IGAAVECore {
 
     // Address for WETH
     address public WETH;
+    address public AAVE_ETH_POOL = 0x6C9fB0D5bD9429eb9Cd96B85B81d872281771E6B;
+
+    // Address for lib
+    address public poolImplementationLib;
+
+    // Address for tokens (DAI, MATIC)
+    IERC20[] public tokenAddresses;
+
+    // Address for ATokens (aDAI, aMATIC)
+    IERC20[] public aTokenAddresses;
+
+    uint256 public campaignId = 0;
+
+    uint256 public badgeIdCounter = 0;
 
     constructor(
         IWETHGateway _WETH_GATEWAY,
         IPool _AAVE_POOL,
         address _WETH,
         address[] memory _tokenAddresses,
+        address[] memory _ATokenAddresses,
         address[] memory _priceFeeds
     ) {
         require(
@@ -43,15 +64,24 @@ contract GAAVECore is IGAAVECore {
         WETH_GATEWAY = _WETH_GATEWAY;
         WETH = _WETH;
         AAVE_POOL = _AAVE_POOL;
+        tokenAddresses = _tokenAddresses;
+        aTokenAddresses = _ATokenAddresses;
 
         for (uint256 i = 0; i < _tokenAddresses.length; i++) {
             tokenToPriceFeed[_tokenAddresses[i]] = _priceFeeds[i];
         }
+
+        // Create 1 Implementation, so that save gas on future clones
+        GAAVEPool poolImplementation = new GAAVEPool();
+        // init it so no one else can (RIP Parity Multisig)
+        poolImplementation.init(address(this), msg.sender);
+        poolImplementationLib = address(poolImplementation);
     }
 
     /**
-     * @notice Deposit Crypto into GAAVE
-     * @param _tokenAddress The address of the token to deposit
+     * @notice Deposit Crypto into a GAAVEPool
+     * @param _campaignId The id of the specific campaign
+     * @param _tokenAddress The address of the pool
      * @param _amount The amount of tokens to deposit
      */
     function deposit(
@@ -59,30 +89,11 @@ contract GAAVECore is IGAAVECore {
         address _tokenAddress,
         uint256 _amount
     ) external {
-        User storage user = userInfo[_campaignId][msg.sender];
-        uint256 timestamp = block.timestamp;
-        uint256 currentPrice = getLatestPrice(tokenToPriceFeed[_tokenAddress]);
-        // if this is user's first time depositing this token, set powerAccumulated to 0,
-        // log amount and timestamp
-        if (user.tokenAmount[_tokenAddress] == 0) {
-            user.powerAccumulated = 0;
-            user.tokenAmount[_tokenAddress] = uint256(_amount);
-            user.lastPrice[_tokenAddress] = currentPrice;
-            user.timeEntered = timestamp;
-        } else {
-            // else, retrieve already accumulated power and reset timestamp to current timestamp
-            // Power = currentAmount * (prevPrice + currentPrice) / 2 * (currentTimestamp - startTimestamp)
-            user.powerAccumulated +=
-                ((user.tokenAmount[_tokenAddress] *
-                    (currentPrice + user.lastPrice[_tokenAddress])) / 2) *
-                (timestamp - user.timeEntered);
-            user.tokenAmount[_tokenAddress] += _amount; // Update Token Deposited
-            user.timeEntered = timestamp; // Update Time Entered
-            user.lastPrice[_tokenAddress] = currentPrice; // Update Last Entry Price of current token
-        }
+        // Get GAAVEPool from campaigns using _poolAddress
+        GAAVEPool _poolAddress = campaigns[_campaignId];
+        // Call Deposit Function of GAAVEPool
 
-        // Deposit to AAVE and lend
-        AAVE_POOL.deposit(_tokenAddress, _amount, address(this), 0);
+        _poolAddress.deposit(_tokenAddress, _amount, msg.sender);
 
         // Emit Event
         emit Deposited(msg.sender, _tokenAddress, _amount);
@@ -90,6 +101,7 @@ contract GAAVECore is IGAAVECore {
 
     /**
      * @notice Withdraw Crypto from GAAVE
+     * @param _campaignId The id of the specific campaign
      * @param _tokenAddress The address of the token to withdraw
      * @param _amount The amount of tokens to withdraw
      */
@@ -98,70 +110,54 @@ contract GAAVECore is IGAAVECore {
         address _tokenAddress,
         uint256 _amount
     ) external {
-        User storage user = userInfo[_campaignId][msg.sender];
-        require(
-            user.tokenAmount[_tokenAddress] > _amount,
-            "GAAVECore: Withdraw amount more than existing amount"
-        );
-        uint256 currentPrice = getLatestPrice(tokenToPriceFeed[_tokenAddress]);
-        // withdraw from AAVE
-        AAVE_POOL.withdraw(_tokenAddress, _amount, msg.sender);
-        uint256 timestamp = block.timestamp;
-        user.powerAccumulated +=
-            ((user.tokenAmount[_tokenAddress] *
-                (currentPrice + user.lastPrice[_tokenAddress])) / 2) *
-            (timestamp - user.timeEntered);
-        user.tokenAmount[_tokenAddress] -= _amount; // Update Token Deposited
-        user.timeEntered = timestamp;
+        // Get GAAVEPool address
+        GAAVEPool _poolAddress = campaigns[_campaignId];
+
+        // Call Withdraw Function of GAAVEPool
+        _poolAddress.withdraw(_tokenAddress, _amount, msg.sender);
 
         // emit event
         emit Withdrawn(msg.sender, _tokenAddress, _amount);
     }
 
     /**
-     * @notice Deposit ETH into GAAVE
+     * @notice Deposit ETH into GAAVE.
+     * @param _campaignId the id of the specific campaign
      */
     function depositETH(uint256 _campaignId) external payable {
-        User storage user = userInfo[_campaignId][msg.sender];
-        uint256 timestamp = block.timestamp;
-        uint256 currentPrice = getLatestPrice(tokenToPriceFeed[WETH]);
-        // if this is user's first time depositing this token, set powerAccumulated to 0,
-        // log amount and timestamp
-        if (user.ethAmount == 0) {
-            user.powerAccumulated = 0;
-            user.ethAmount = uint256(msg.value);
-            user.lastPrice[WETH] = currentPrice;
-            user.timeEntered = timestamp;
-        } else {
-            // else, retrieve already accumulated power and reset timestamp to current timestamp
-            // Power = currentAmount * (prevPrice + currentPrice) / 2 * (currentTimestamp - startTimestamp)
-            user.powerAccumulated +=
-                ((user.ethAmount * (currentPrice + user.lastPrice[WETH])) / 2) *
-                (timestamp - user.timeEntered);
-            user.ethAmount += msg.value; // Update Token Deposited
-            user.timeEntered = timestamp; // Update Time Entered
-            user.lastPrice[WETH] = currentPrice; // Update Last Entry Price of current token
-        }
-        // Transfer ETH from user to GAAVE
-        WETH_GATEWAY.depositETH{value: msg.value}(
-            0x6C9fB0D5bD9429eb9Cd96B85B81d872281771E6B,
-            address(this),
-            0
-        );
+        // Get GAAVEPool from campaigns using _poolAddress
+        GAAVEPool _poolAddress = campaigns[_campaignId];
+
+        // Call depositETH Function of GAAVEPool
+        _poolAddress.depositETH(msg.sender);
+
+        // emit event
         emit DepositedETH(msg.sender, msg.value);
     }
 
     /**
      * @notice Withdraw ETH from GAAVE
+     * @param _poolAddress The address of the pool.
      * @param _amount The amount of tokens to withdraw
      */
-    function withdrawETH(uint256 _amount) external {}
+    function withdrawETH(uint256 _poolAddress, uint256 _amount) external {
+        // Get GAAVEPool address
+        GAAVEPool _poolAddress = campaigns[_campaignId];
+
+        // Call Withdraw Function of GAAVEPool
+        _poolAddress.withdraw(_tokenAddress, _amount, msg.sender);
+
+        // emit event
+        emit Withdrawn(msg.sender, WETH, _amount);
+    }
 
     /**
      * @notice Claim badges from GAAVE
      * @return The address of the registered for the specified id
      */
-    function claimBadge() external returns (uint256) {}
+    function claimBadge(uint256 _campaignId) external {
+        _poolAddress.claimBadge(_campaignId, msg.sender);
+    }
 
     /**
      * @notice Calculate the value of deposit based on the token's address
@@ -181,20 +177,13 @@ contract GAAVECore is IGAAVECore {
         return uint256(price);
     }
 
-    function deposit(address _tokenAddress, uint256 _amount)
-        external
-        override
-    {}
-
-    function withdraw(address _tokenAddress, uint256 _amount)
-        external
-        override
-    {}
-
-    function claimBadge(uint256 _campaignId, uint256 _milestone)
-        external
-        override
-    {}
+    function getTokenToPriceFeed(address token)
+        public
+        view
+        returns (address priceFeed)
+    {
+        priceFeed = tokenToPriceFeed[token];
+    }
 
     function proposeCampaign(
         uint256[] memory _thresholds,
@@ -202,4 +191,24 @@ contract GAAVECore is IGAAVECore {
     ) external override {}
 
     function getCampaignCount() external view override returns (uint256) {}
+
+    function deployPool(address _campaignOwner) internal returns (address) {
+        require(
+            campaignOwner[_campaignOwner] == 0,
+            "GAAVECore: Owner already has an ongoing campaign!"
+        );
+        GAAVEPool pool = GAAVEPool(Clones.clone(poolImplementationLib));
+
+        pool.init(
+            address(this),
+            campaignOwner,
+            [badgeIdCounter, badgeIdCounter + 1]
+        );
+        badgeIdCounter += 2;
+        campaignId += 1;
+        campaignOwner[_campaignOwner] = campaignId;
+        campaigns[campaignId] = pool;
+
+        return address(pool);
+    }
 }

@@ -19,6 +19,12 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
     "0xb685400156cF3CBE8725958DeAA61436727A30c3", // MATIC
   ];
 
+  // Token Addresses
+  let A_TOKEN_ADDRESSES = [
+    "0x9A753f0F7886C9fbF63cF59D0D4423C5eFaCE95B", // DAI
+    "0xb685400156cF3CBE8725958DeAA61436727A30c3", // MATIC
+  ];
+
   // Chainlink Addresses
   let CHAINLINK_ADDRESSES = [
     "0x0FCAa9c899EC5A91eBc3D5Dd869De833b06fB046", //DAI
@@ -34,6 +40,7 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
       POOL_PROXY,
       TOKEN_ADDRESSES[1],
       TOKEN_ADDRESSES,
+      A_TOKEN_ADDRESSES,
       CHAINLINK_ADDRESSES,
     ],
   });
