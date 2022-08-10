@@ -137,15 +137,15 @@ contract GAAVECore is IGAAVECore {
 
     /**
      * @notice Withdraw ETH from GAAVE
-     * @param _poolAddress The address of the pool.
+     * @param _campaignId Pool Id
      * @param _amount The amount of tokens to withdraw
      */
-    function withdrawETH(uint256 _poolAddress, uint256 _amount) external {
+    function withdrawETH(uint256 _campaignId, uint256 _amount) external {
         // Get GAAVEPool address
         GAAVEPool _poolAddress = campaigns[_campaignId];
 
         // Call Withdraw Function of GAAVEPool
-        _poolAddress.withdraw(_tokenAddress, _amount, msg.sender);
+        _poolAddress.withdrawETH(_amount, msg.sender);
 
         // emit event
         emit Withdrawn(msg.sender, WETH, _amount);
@@ -153,10 +153,19 @@ contract GAAVECore is IGAAVECore {
 
     /**
      * @notice Claim badges from GAAVE
-     * @return The address of the registered for the specified id
      */
     function claimBadge(uint256 _campaignId) external {
-        _poolAddress.claimBadge(_campaignId, msg.sender);
+        // Get token ids eligible for claim
+        uint256[] memory _eligibleBadges = campaigns[_campaignId]
+            .getEligibleTokenIds();
+
+        // Loop through eligible badges
+        for (uint256 i = 0; i < _eligibleBadges.length; i++) {
+            if (GAAVE_BADGE.balanceOf(msg.sender) == 0) {
+                GAAVE_BADGE.mint(msg.sender, tokenId, 1);
+            }
+        }
+        // Mint Badges for each eligible token id
     }
 
     /**

@@ -30,22 +30,16 @@ contract GAAVEPool {
     function canClaim(address _claimant)
         public
         view
-        returns (uint256[] eligibleBadges)
+        returns (uint256[] memory eligibleBadges)
     {
-        uint256[] eligibleBadges = [];
+        Campaign storage _campaign = this.campaign;
 
-        Campaign storage campaign = this.campaign;
-
-        for (
-            uint256 i = 0;
-            i < campaign.badgeIds.length;
-            i++
-        ) {
+        for (uint256 i = 0; i < _campaign.badgeIds.length; i++) {
             if (
-                supporters[_claimant].powerAccumulated
-             >= campaign.thresholds[i]
+                supporters[_claimant].powerAccumulated >=
+                _campaign.thresholds[i]
             ) {
-                eligibleBadges.push(campaign.badgeIds[i]);
+                eligibleBadges.push(_campaign.badgeIds[i]);
             }
         }
         return eligibleBadges;
@@ -70,13 +64,12 @@ contract GAAVEPool {
     function init(
         address _CORE,
         address _poolOwner,
-        uint256[] _badgeIds
+        uint256[] calldata _badgeIds
     ) public {
         require(poolOwner == address(0), "GAAVEPool: Already initialized");
 
         CORE = GAAVECore(_CORE);
         poolOwner = _poolOwner;
-        badge = IERC1155(_badge);
 
         campaign = new Campaign(_badgeIds, [10 ether, 100 ether]);
     }
@@ -222,7 +215,7 @@ contract GAAVEPool {
     {
         User storage user = supporters[supporter];
         require(
-            user.ethAmount > _amount,
+            _amount < user.ethAmount,
             "GAAVECore: Withdraw amount more than existing amount"
         );
         uint256 currentPrice = CORE.getLatestPrice(
@@ -312,6 +305,6 @@ contract GAAVEPool {
 
     function getUserClaimableBadges() external view {
         // thresholds
-        if reach threshold 
+        // if reach threshold
     }
 }
