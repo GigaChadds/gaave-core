@@ -210,6 +210,24 @@ contract GAAVECore is IGAAVECore {
         campaigns[_campaignId].canClaim(_claimant);
     }
 
+    function getSupporterBalance(uint256 _campaignId, address _supporter, address _tokenAddress) external view returns (uint256){
+
+        GAAVEPool pool = campaigns[_campaignId];
+        uint256 result = pool.getSupporterTokenBalance(_supporter,_tokenAddress);
+        return result;
+
+    }
+
+        function getSupporterETHBalance(uint256 _campaignId,address _supporter)
+        external
+        view
+        returns (uint256)
+    {
+         GAAVEPool pool = campaigns[_campaignId];
+        uint256 result = pool.getSupporterETHBalance(_supporter);
+        return result;
+    }
+
     /**
      * @notice Calculate the value of deposit based on the token's address
      * @return The value of the token in USD
