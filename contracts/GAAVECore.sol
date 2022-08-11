@@ -243,7 +243,7 @@ contract GAAVECore is IGAAVECore {
 
     function getCampaignCount() external view override returns (uint256) {}
 
-    function deployPool(address _campaignOwner) internal returns (address) {
+    function deployPool(address _campaignOwner) external returns (address) {
         require(
             campaignOwner[_campaignOwner] == 0,
             "GAAVECore: Owner already has an ongoing campaign!"
