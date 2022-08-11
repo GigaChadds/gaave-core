@@ -3,10 +3,12 @@ pragma solidity 0.8.10;
 
 import "./interface/IGAAVECore.sol";
 import "./interface/IWETHGateway.sol";
+import "./interface/IGAAVEBadge.sol";
 import "./interface/IPool.sol";
 
 // import IERC20 from openzeppelin
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC1155/IERC1155.sol";
 import "@openzeppelin/contracts/proxy/Clones.sol";
 
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
@@ -40,7 +42,7 @@ contract GAAVECore is IGAAVECore {
     address public poolImplementationLib;
 
     // Address for ERC1155
-    address public GAAVEBadge;
+    IGAAVEBadge public GAAVEBadge;
 
     // Address for tokens (DAI, MATIC)
     IERC20[] public tokenAddresses;
@@ -56,8 +58,8 @@ contract GAAVECore is IGAAVECore {
         IWETHGateway _WETH_GATEWAY,
         IPool _AAVE_POOL,
         address _WETH,
-        address[] memory _tokenAddresses,
-        address[] memory _ATokenAddresses,
+        IERC20[] memory _tokenAddresses,
+        IERC20[] memory _ATokenAddresses,
         address[] memory _priceFeeds
     ) {
         require(
@@ -71,16 +73,24 @@ contract GAAVECore is IGAAVECore {
         aTokenAddresses = _ATokenAddresses;
 
         for (uint256 i = 0; i < _tokenAddresses.length; i++) {
-            tokenToPriceFeed[_tokenAddresses[i]] = _priceFeeds[i];
+            tokenToPriceFeed[address(_tokenAddresses[i])] = _priceFeeds[i];
         }
 
         // Create 1 Implementation, so that save gas on future clones
         GAAVEPool poolImplementation = new GAAVEPool();
-        // init it so no one else can (RIP Parity Multisig)
-        poolImplementation.init(address(this), msg.sender);
+
+        uint256[] memory _badgeIds = new uint256[](2);
+        _badgeIds[0] = 0;
+        _badgeIds[1] = 1;
+
+        poolImplementation.init(
+            address(this),
+            msg.sender,
+            address(GAAVEBadge),
+            _badgeIds
+        );
         poolImplementationLib = address(poolImplementation);
     }
-  
 
     /**
      * @notice Deposit Crypto into a GAAVEPool
@@ -155,21 +165,47 @@ contract GAAVECore is IGAAVECore {
         emit Withdrawn(msg.sender, WETH, _amount);
     }
 
+    function claimableETH(uint256 _campaignId) external view returns (uint256) {
+        GAAVEPool pool = campaigns[_campaignId];
+        return pool.claimableETH();
+    }
+
+    function claimableToken(uint256 _campaignId, address _tokenAddress)
+        external
+        view
+        returns (uint256)
+    {
+        GAAVEPool pool = campaigns[_campaignId];
+        return pool.claimableToken(IERC20(_tokenAddress));
+    }
+
     /**
      * @notice Claim badges from GAAVE
      */
     function claimBadge(uint256 _campaignId) external {
         // Get token ids eligible for claim
-        uint256[] memory _eligibleBadges = campaigns[_campaignId]
-            .getEligibleTokenIds();
+        uint256[] memory _eligibleBadges = campaigns[_campaignId].canClaim(
+            msg.sender
+        );
 
         // Loop through eligible badges
         for (uint256 i = 0; i < _eligibleBadges.length; i++) {
-            if (GAAVE_BADGE.balanceOf(msg.sender) == 0) {
-                GAAVE_BADGE.mint(msg.sender, tokenId, 1);
+            if (GAAVEBadge.balanceOf(msg.sender, _eligibleBadges[i]) == 0) {
+                // Mint Badges for each eligible token id
+                GAAVEBadge.mint(msg.sender, _eligibleBadges[i], 1, "");
             }
         }
-        // Mint Badges for each eligible token id
+    }
+
+    /**
+     * @notice Check if the claimant is eligible for badge id
+     */
+    function canClaim(uint256 _campaignId, address _claimant)
+        public
+        view
+        returns (uint256[] memory eligibleBadges)
+    {
+        campaigns[_campaignId].canClaim(_claimant);
     }
 
     /**
@@ -212,10 +248,15 @@ contract GAAVECore is IGAAVECore {
         );
         GAAVEPool pool = GAAVEPool(Clones.clone(poolImplementationLib));
 
+        uint256[] memory _badgeIds = new uint256[](2);
+        _badgeIds[0] = badgeIdCounter;
+        _badgeIds[1] = badgeIdCounter + 1;
+
         pool.init(
             address(this),
-            campaignOwner,
-            [badgeIdCounter, badgeIdCounter + 1]
+            _campaignOwner,
+            address(GAAVEBadge),
+            _badgeIds
         );
         badgeIdCounter += 2;
         campaignId += 1;
@@ -223,5 +264,9 @@ contract GAAVECore is IGAAVECore {
         campaigns[campaignId] = pool;
 
         return address(pool);
+    }
+
+    function getTokenAddress(uint256 index) public view returns (IERC20) {
+        return tokenAddresses[index];
     }
 }
