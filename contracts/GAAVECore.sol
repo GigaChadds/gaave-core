@@ -210,20 +210,25 @@ contract GAAVECore is IGAAVECore {
         campaigns[_campaignId].canClaim(_claimant);
     }
 
-    function getSupporterBalance(uint256 _campaignId, address _supporter, address _tokenAddress) external view returns (uint256){
-
+    function getSupporterBalance(
+        uint256 _campaignId,
+        address _supporter,
+        address _tokenAddress
+    ) external view returns (uint256) {
         GAAVEPool pool = campaigns[_campaignId];
-        uint256 result = pool.getSupporterTokenBalance(_supporter,_tokenAddress);
+        uint256 result = pool.getSupporterTokenBalance(
+            _supporter,
+            _tokenAddress
+        );
         return result;
-
     }
 
-        function getSupporterETHBalance(uint256 _campaignId,address _supporter)
+    function getSupporterETHBalance(uint256 _campaignId, address _supporter)
         external
         view
         returns (uint256)
     {
-         GAAVEPool pool = campaigns[_campaignId];
+        GAAVEPool pool = campaigns[_campaignId];
         uint256 result = pool.getSupporterETHBalance(_supporter);
         return result;
     }
@@ -261,9 +266,9 @@ contract GAAVECore is IGAAVECore {
 
     function getCampaignCount() external view override returns (uint256) {}
 
-    function deployPool(address _campaignOwner) external returns (address) {
+    function deployPool() external returns (address) {
         require(
-            campaignOwner[_campaignOwner] == 0,
+            campaignOwner[msg.sender] == 0,
             "GAAVECore: Owner already has an ongoing campaign!"
         );
         GAAVEPool pool = GAAVEPool(Clones.clone(poolImplementationLib));
@@ -272,15 +277,10 @@ contract GAAVECore is IGAAVECore {
         _badgeIds[0] = badgeIdCounter;
         _badgeIds[1] = badgeIdCounter + 1;
 
-        pool.init(
-            address(this),
-            _campaignOwner,
-            address(GAAVEBadge),
-            _badgeIds
-        );
+        pool.init(address(this), msg.sender, address(GAAVEBadge), _badgeIds);
         badgeIdCounter += 2;
         campaignId += 1;
-        campaignOwner[_campaignOwner] = campaignId;
+        campaignOwner[msg.sender] = campaignId;
         campaigns[campaignId] = pool;
 
         return address(pool);
