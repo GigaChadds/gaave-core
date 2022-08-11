@@ -60,7 +60,8 @@ contract GAAVECore is IGAAVECore {
         address _WETH,
         IERC20[] memory _tokenAddresses,
         IERC20[] memory _ATokenAddresses,
-        address[] memory _priceFeeds
+        address[] memory _priceFeeds,
+        IGAAVEBadge _GAAVEBadge
     ) {
         require(
             _tokenAddresses.length == _priceFeeds.length,
@@ -69,6 +70,7 @@ contract GAAVECore is IGAAVECore {
         WETH_GATEWAY = _WETH_GATEWAY;
         WETH = _WETH;
         AAVE_POOL = _AAVE_POOL;
+        GAAVEBadge = _GAAVEBadge;
         tokenAddresses = _tokenAddresses;
         aTokenAddresses = _ATokenAddresses;
 

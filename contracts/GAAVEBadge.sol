@@ -52,13 +52,10 @@ contract GAAVEBadge is ERC1155, Pausable, Ownable {
     constructor(
         string memory _name,
         string memory _symbol,
-        string memory baseURI,
-        address owner
+        string memory baseURI
     ) ERC1155(baseURI) {
         name = _name;
         symbol = _symbol;
-        setBaseMetadataURI(baseURI);
-        transferOwnership(owner);
     }
 
     // ------------------------- VIEW FUNCTIONS ------------------------------
