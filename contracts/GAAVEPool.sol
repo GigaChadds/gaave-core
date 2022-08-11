@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.10;
 
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+
 import "./GAAVECore.sol";
 // Import openzeppelin IERC1155
 import "@openzeppelin/contracts/token/ERC1155/IERC1155.sol";
@@ -22,7 +24,7 @@ contract GAAVEPool {
         uint256[] thresholds;
     }
 
-    Campaign public campaign;
+    Campaign internal campaign;
 
     /**
      * @notice Check if the claimant is eligible for badge id
@@ -32,30 +34,17 @@ contract GAAVEPool {
         view
         returns (uint256[] memory eligibleBadges)
     {
-        Campaign storage _campaign = this.campaign;
+        Campaign storage _campaign = campaign;
 
         for (uint256 i = 0; i < _campaign.badgeIds.length; i++) {
             if (
                 supporters[_claimant].powerAccumulated >=
                 _campaign.thresholds[i]
             ) {
-                eligibleBadges.push(_campaign.badgeIds[i]);
+                eligibleBadges[i] = _campaign.badgeIds[i];
             }
         }
         return eligibleBadges;
-    }
-
-    /**
-     * @notice Claim badges
-     */
-    function claimBadges(address _claimant) public onlyCore{
-
-        uint256[] _eligibleBadges = canClaim(_claimant);
-        // badge.mint(_claimant,
-        // _id,
-        // 1,
-        // "0x00")
-
     }
 
     struct User {
@@ -78,16 +67,17 @@ contract GAAVEPool {
         address _CORE,
         address _poolOwner,
         address _badge,
-        uint256[] _badgeIds
+        uint256[] calldata _badgeIds
     ) public {
         require(poolOwner == address(0), "GAAVEPool: Already initialized");
 
         CORE = GAAVECore(_CORE);
         poolOwner = _poolOwner;
-        // init badge contract //
-        IERC1155(_badge).init("GAAVE Campaign Badge","GAAVEB", "uri", address(this));
-        badge.create(address(this), 1, "", "0x00");
-        campaign = new Campaign(_badgeIds, [10 ether, 100 ether]);
+
+        uint256[] memory threshold = new uint256[](2);
+        threshold[0] = 10 ether;
+        threshold[1] = 100 ether;
+        campaign = Campaign(_badgeIds, threshold);
     }
 
     /**
@@ -100,7 +90,7 @@ contract GAAVEPool {
         address _tokenAddress,
         uint256 _amount,
         address _supporter
-    ) public onlyCore returns (uint256) {
+    ) public payable onlyCore returns (uint256) {
         // Get User from storage
         User storage user = supporters[_supporter];
 
@@ -255,9 +245,17 @@ contract GAAVEPool {
 
     // @notice claim sends the accrued interest to the poolOwner of this pool. The
     // stake remains at the yield pool and continues generating yield.
-    function claim() public onlyCore returns (uint256) {
+    function claimETH() public onlyCore returns (uint256) {
         uint256 amount = claimableETH();
-        withdraw(amount, poolOwner);
+        withdrawETH(amount, poolOwner);
+        return amount;
+    }
+
+    // @notice claim sends the accrued interest to the poolOwner of this pool. The
+    // stake remains at the yield pool and continues generating yield.
+    function claim(address _tokenAddress) public onlyCore returns (uint256) {
+        uint256 amount = claimableToken(IERC20(_tokenAddress));
+        withdraw(address(CORE.getTokenAddress(0)), amount, poolOwner);
         return amount;
     }
 
@@ -265,40 +263,37 @@ contract GAAVEPool {
     // It is the accrued interest on all staked ether.
     // It can be withdrawn by the poolOwner with claim.
     function claimableETH() public view returns (uint256) {
-        return CORE.token().balanceOf(address(this)) - staked();
+        IERC20 token = CORE.getTokenAddress(0);
+
+        return token.balanceOf(address(this)) - staked(address(token));
     }
 
-    /**
-     * @notice Transfer all yield farmed to the poolOwner
-     */
-    function claimAll() public onlyCore returns (uint256) {
-        // Transfer ETH
-
-        // Transfer Tokens
-        uint256 amount = claimableETH();
-        withdraw(amount, poolOwner);
-        return amount;
+    // claimableETH returns the total earned ether by the provided poolOwner.
+    // It is the accrued interest on all staked ether.
+    // It can be withdrawn by the poolOwner with claim.
+    function claimableToken(IERC20 token) public view returns (uint256) {
+        return token.balanceOf(address(this)) - staked(address(token));
     }
 
     function calculateYield() public view returns (uint256 value) {
         // Calculate WETH tokens
-        uint256 amountETHYield = CORE.tokenAddresses[1].balanceOf(
+        uint256 amountETHYield = CORE.getTokenAddress(1).balanceOf(
             address(this)
         );
 
         // minus WETH deposited
         amountETHYield -= stakedETH();
         uint256 currentPriceETH = CORE.getLatestPrice(
-            CORE.getTokenToPriceFeed(CORE.tokenAddresses[1])
+            CORE.getTokenToPriceFeed(address(CORE.getTokenAddress(1)))
         );
 
         value = (amountETHYield * currentPriceETH) / 10**18;
 
         // Calculate DAI in USD Value
-        uint256 amount = CORE.tokenAddresses[0].balanceOf(address(this));
-        amount -= staked();
+        uint256 amount = CORE.getTokenAddress(0).balanceOf(address(this));
+        amount -= staked(address(CORE.getTokenAddress(0)));
         uint256 currentPrice = CORE.getLatestPrice(
-            CORE.getTokenToPriceFeed(CORE.tokenAddresses[0])
+            CORE.getTokenToPriceFeed(address(CORE.getTokenAddress(0)))
         );
 
         value += (amount * currentPrice) / 10**18;
@@ -314,4 +309,19 @@ contract GAAVEPool {
         return totalTokenAmount[tokenAddress];
     }
 
+    function getSupporterTokenBalance(address _supporter, address _tokenAddress)
+        external
+        view
+        returns (uint256)
+    {
+        return supporters[_supporter].tokenAmount[_tokenAddress];
+    }
+
+    function getSupporterETHBalance(address _supporter)
+        external
+        view
+        returns (uint256)
+    {
+        return supporters[_supporter].ethAmount;
+    }
 }

@@ -32,6 +32,7 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   ];
 
   // Mapping
+  let GAAVE_BADGE = await ethers.getContract("GAAVEBadge");
 
   let gaave = await deploy("GAAVECore", {
     from: deployer,
@@ -42,6 +43,7 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
       TOKEN_ADDRESSES,
       A_TOKEN_ADDRESSES,
       CHAINLINK_ADDRESSES,
+      GAAVE_BADGE.address,
     ],
   });
 

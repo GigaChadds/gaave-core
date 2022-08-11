@@ -74,9 +74,8 @@ interface IGAAVECore {
     /**
      * @notice Claim badges from GAAVE
      * @param _campaignId The id of the campaign to claim from
-     * @param _milestone The milestone of the reward
      */
-    function claimBadge(uint256 _campaignId, uint256 _milestone) external;
+    function claimBadge(uint256 _campaignId) external;
 
     function proposeCampaign(
         uint256[] memory _thresholds,

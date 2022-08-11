@@ -52,13 +52,10 @@ contract GAAVEBadge is ERC1155, Pausable, Ownable {
     constructor(
         string memory _name,
         string memory _symbol,
-        string memory baseURI,
-        address owner
+        string memory baseURI
     ) ERC1155(baseURI) {
         name = _name;
         symbol = _symbol;
-        setBaseMetadataURI(baseURI);
-        transferOwnership(owner);
     }
 
     // ------------------------- VIEW FUNCTIONS ------------------------------
@@ -76,18 +73,13 @@ contract GAAVEBadge is ERC1155, Pausable, Ownable {
             "GAAVEBadge: URI query for nonexistent token"
         );
 
-        string memory base = _baseURI();
-        string memory _tokenURI = _tokenURIs[tokenId];
-
-        return
-            string(
-                abi.encodePacked(
-                    base,
-                    _tokenURI,
-                    Strings.toString(tokenId),
-                    ".json"
-                )
-            );
+        if (tokenId % 2 == 0) {
+            return
+                "ipfs://bafybeie6iyzkxyyagffo62jaialb2u3h3o6v32ayqfttziezwxc2fyr7em/1.png";
+        } else {
+            return
+                "ipfs://bafybeie6iyzkxyyagffo62jaialb2u3h3o6v32ayqfttziezwxc2fyr7em/2.png";
+        }
     }
 
     // ------------------------- ADMIN FUNCTIONS ------------------------------
@@ -256,7 +248,8 @@ contract GAAVEBadge is ERC1155, Pausable, Ownable {
         bytes memory data
     ) internal override {
         super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
-
+        // Make untransferable
+        require(address(from) == address(0), "GAAVEBadge: Non-transferrable.");
         require(!paused(), "ERC1155Pausable: token transfer while paused");
     }
 

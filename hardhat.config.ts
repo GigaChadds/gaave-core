@@ -84,7 +84,7 @@ module.exports = {
       accounts: [PRIVATE_KEY],
     },
     mumbai: {
-      url: "https://rpc-mumbai.matic.today",
+      url: "https://polygon-mumbai.g.alchemy.com/v2/o1dKBt7FcYQrRUNfgHX-DUUXHNvPKA1v",
       chainId: 80001,
       accounts: [PRIVATE_KEY],
       saveDeployments: true,
