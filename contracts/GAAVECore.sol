@@ -28,6 +28,7 @@ contract GAAVECore is IGAAVECore {
     // Maps token address to Chainlink Price Feed
     mapping(address => address) public tokenToPriceFeed;
 
+    mapping(address => uint256[]) public tokenIds;
     // To deposit ETH/MATIC
     IWETHGateway public WETH_GATEWAY;
 
@@ -195,6 +196,7 @@ contract GAAVECore is IGAAVECore {
             if (GAAVEBadge.balanceOf(msg.sender, _eligibleBadges[i]) == 0) {
                 // Mint Badges for each eligible token id
                 GAAVEBadge.mint(msg.sender, _eligibleBadges[i], 1, "");
+                tokenIds[msg.sender][i] = _eligibleBadges[i];
             }
         }
     }
