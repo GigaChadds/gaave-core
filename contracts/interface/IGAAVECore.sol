@@ -33,9 +33,11 @@ interface IGAAVECore {
         address _address
     );
     event CampaignProposed(
-        address _campaignAddress,
-        uint256 _campaignId,
-        uint256[] _thresholds
+        address indexed proposer,
+        uint256 indexed campaignId,
+        string name,
+        string description,
+        uint256 fundraiseGoal
     );
 
     /**
@@ -78,8 +80,9 @@ interface IGAAVECore {
     function claimBadge(uint256 _campaignId) external;
 
     function proposeCampaign(
-        uint256[] memory _thresholds,
-        string[] memory _cids
+        string memory name,
+        string memory description,
+        uint256 fundraiseGoal
     ) external;
 
     function getCampaignCount() external view returns (uint256);

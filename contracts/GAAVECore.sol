@@ -262,13 +262,26 @@ contract GAAVECore is IGAAVECore {
     }
 
     function proposeCampaign(
-        uint256[] memory _thresholds,
-        string[] memory _cids
-    ) external override {}
+        string memory name,
+        string memory description,
+        uint256 fundraiseGoal
+    ) external override {
+        deployPool();
 
-    function getCampaignCount() external view override returns (uint256) {}
+        emit CampaignProposed(
+            msg.sender,
+            campaignId,
+            name,
+            description,
+            fundraiseGoal
+        );
+    }
 
-    function deployPool() external returns (address) {
+    function getCampaignCount() external view override returns (uint256) {
+        return campaignId;
+    }
+
+    function deployPool() public returns (uint256) {
         require(
             campaignOwner[msg.sender] == 0,
             "GAAVECore: Owner already has an ongoing campaign!"
@@ -285,7 +298,14 @@ contract GAAVECore is IGAAVECore {
         campaignOwner[msg.sender] = campaignId;
         campaigns[campaignId] = pool;
 
-        return address(pool);
+        return campaignId;
+    }
+
+    // Claim assets from pool
+    function ownerClaimPool(uint256 _campaignId) external {
+        GAAVEPool pool = campaigns[_campaignId];
+        pool.claim(address(tokenAddresses[0]));
+        pool.claimETH();
     }
 
     function getTokenAddress(uint256 index) public view returns (IERC20) {
